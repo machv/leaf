@@ -49,7 +49,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LeafService.svc" />
