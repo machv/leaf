@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeafService", "LeafService\LeafService.csproj", "{95481000-7F2E-48F7-8B85-A5012E89B6F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DescriptorCreator", "DescriptorCreator\DescriptorCreator.csproj", "{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -27,6 +29,16 @@ Global
 		{95481000-7F2E-48F7-8B85-A5012E89B6F5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{95481000-7F2E-48F7-8B85-A5012E89B6F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{95481000-7F2E-48F7-8B85-A5012E89B6F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Debug|x86.ActiveCfg = Debug|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Debug|x86.Build.0 = Debug|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Release|Any CPU.ActiveCfg = Release|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Release|x86.ActiveCfg = Release|x86
+		{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
