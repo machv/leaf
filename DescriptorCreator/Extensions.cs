@@ -1,40 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DescriptorCreator
+namespace ExtensionsColor
 {
-	public partial class Form1 : Form
+	public static class ExtensionsColor
 	{
-		public Form1()
+		public static bool AreSimilar(this Color source, Color actual, int treshold)
 		{
-			InitializeComponent();
+			return Math.Abs(source.ToArgb() - actual.ToArgb()) < treshold ? true : false;
+		}
+	}
+
+}
+
+namespace ExtensionsBitmap
+{
+	public static class ExtensionsBitmap
+	{
+		public static int[] Histogram (this Bitmap image)
+		{
+			var array = new int[256];
+
+			for (var i = 0; i < image.Width; i++)
+				for (var j = 0; j < image.Height; j++)
+					array[image.GetPixel(i, j).R]++;
+
+			return array;
 		}
 
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		public static Bitmap SetGrayscale(this Bitmap image)
 		{
-			var fileDialog = new OpenFileDialog
+			Bitmap temp = (Bitmap)image;
+			Bitmap bmap = (Bitmap)temp.Clone();
+			Color c;
+			for (int i = 0; i < bmap.Width; i++)
 			{
-				Multiselect = false,
-				Filter = "Images|*.jpg;*.jpeg;*.png"
-			};
-			if (fileDialog.ShowDialog() == DialogResult.OK)
-			{
-				var image = new Bitmap(fileDialog.FileName);
-				image = this.ResizePic(400, 400, image);
+				for (int j = 0; j < bmap.Height; j++)
+				{
+					c = bmap.GetPixel(i, j);
+					byte gray = (byte)(.299 * c.R + .587 * c.G + .114 * c.B);
 
-				this.LeafPicture.Image = image;
+					bmap.SetPixel(i, j, Color.FromArgb(gray, gray, gray));
+				}
 			}
+			return (Bitmap)bmap.Clone();
 		}
 
-		public Bitmap ResizePic(int newWidth, int newHeight, Bitmap image)
+		public static Bitmap ResizePic(this Bitmap image, int longerSide)
 		{
 			var _currentBitmap = image;
+			int newHeight;
+			int newWidth;
+
+			if (image.Height > image.Width)
+			{
+				newHeight = longerSide;
+				newWidth = (int)(((float)((float)image.Width/(float)image.Height))*(float)longerSide);
+			}
+			else
+			{
+				newWidth = longerSide;
+				newHeight = (int)(((float)((float)image.Height / (float)image.Width)) * (float)longerSide);
+			}
+
 			if (newWidth != 0 && newHeight != 0)
 			{
 				Bitmap temp = (Bitmap)_currentBitmap;
