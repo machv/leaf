@@ -8,7 +8,7 @@
     <ProjectGuid>{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExtensionsColor</RootNamespace>
+    <RootNamespace>DescriptorCreator</RootNamespace>
     <AssemblyName>DescriptorCreator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvexPath.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

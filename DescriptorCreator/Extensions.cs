@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ExtensionsColor
+namespace ExtesionsColor
 {
 	public static class ExtensionsColor
 	{

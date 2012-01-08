@@ -1,4 +1,4 @@
-﻿namespace ExtensionsColor
+﻿namespace DescriptorCreator
 {
 	partial class MainForm
 	{
@@ -37,13 +37,15 @@
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ArgbLabel = new System.Windows.Forms.Label();
-			this.NormalizeTreshold = new System.Windows.Forms.NumericUpDown();
 			this.RevertButton = new System.Windows.Forms.Button();
 			this.controlPanel = new System.Windows.Forms.Panel();
+			this.pathButton = new System.Windows.Forms.Button();
+			this.NormalizeTreshold = new System.Windows.Forms.NumericUpDown();
+			this.centroidButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.LeafPicture)).BeginInit();
 			this.menuStrip1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.NormalizeTreshold)).BeginInit();
 			this.controlPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.NormalizeTreshold)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LeafPicture
@@ -96,7 +98,7 @@
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -119,27 +121,8 @@
 			this.ArgbLabel.AutoSize = true;
 			this.ArgbLabel.Location = new System.Drawing.Point(13, 454);
 			this.ArgbLabel.Name = "ArgbLabel";
-			this.ArgbLabel.Size = new System.Drawing.Size(35, 13);
+			this.ArgbLabel.Size = new System.Drawing.Size(0, 13);
 			this.ArgbLabel.TabIndex = 3;
-			this.ArgbLabel.Text = "label1";
-			// 
-			// NormalizeTreshold
-			// 
-			this.NormalizeTreshold.Location = new System.Drawing.Point(16, 54);
-			this.NormalizeTreshold.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-			this.NormalizeTreshold.Name = "NormalizeTreshold";
-			this.NormalizeTreshold.Size = new System.Drawing.Size(120, 20);
-			this.NormalizeTreshold.TabIndex = 4;
-			this.NormalizeTreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.NormalizeTreshold.Value = new decimal(new int[] {
-            3000000,
-            0,
-            0,
-            0});
 			// 
 			// RevertButton
 			// 
@@ -153,6 +136,8 @@
 			// 
 			// controlPanel
 			// 
+			this.controlPanel.Controls.Add(this.centroidButton);
+			this.controlPanel.Controls.Add(this.pathButton);
 			this.controlPanel.Controls.Add(this.RevertButton);
 			this.controlPanel.Controls.Add(this.NormalizeTreshold);
 			this.controlPanel.Controls.Add(this.NormalizeColors);
@@ -161,7 +146,45 @@
 			this.controlPanel.Size = new System.Drawing.Size(202, 445);
 			this.controlPanel.TabIndex = 6;
 			// 
-			// Form1
+			// pathButton
+			// 
+			this.pathButton.Location = new System.Drawing.Point(16, 93);
+			this.pathButton.Name = "pathButton";
+			this.pathButton.Size = new System.Drawing.Size(140, 40);
+			this.pathButton.TabIndex = 6;
+			this.pathButton.Text = "Draw Contour";
+			this.pathButton.UseVisualStyleBackColor = true;
+			this.pathButton.Click += new System.EventHandler(this.pathButton_Click);
+			// 
+			// NormalizeTreshold
+			// 
+			this.NormalizeTreshold.Location = new System.Drawing.Point(16, 54);
+			this.NormalizeTreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.NormalizeTreshold.Minimum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            -2147483648});
+			this.NormalizeTreshold.Name = "NormalizeTreshold";
+			this.NormalizeTreshold.Size = new System.Drawing.Size(120, 20);
+			this.NormalizeTreshold.TabIndex = 4;
+			this.NormalizeTreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// centroidButton
+			// 
+			this.centroidButton.Location = new System.Drawing.Point(16, 139);
+			this.centroidButton.Name = "centroidButton";
+			this.centroidButton.Size = new System.Drawing.Size(140, 40);
+			this.centroidButton.TabIndex = 7;
+			this.centroidButton.Text = "Draw Centroid";
+			this.centroidButton.UseVisualStyleBackColor = true;
+			this.centroidButton.Click += new System.EventHandler(this.centroidButton_Click);
+			// 
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -171,13 +194,13 @@
 			this.Controls.Add(this.LeafPicture);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
-			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Name = "MainForm";
+			this.Text = "Descriptor Extractor";
 			((System.ComponentModel.ISupportInitialize)(this.LeafPicture)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.NormalizeTreshold)).EndInit();
 			this.controlPanel.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.NormalizeTreshold)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -194,9 +217,11 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.Label ArgbLabel;
-		private System.Windows.Forms.NumericUpDown NormalizeTreshold;
 		private System.Windows.Forms.Button RevertButton;
 		private System.Windows.Forms.Panel controlPanel;
+		private System.Windows.Forms.NumericUpDown NormalizeTreshold;
+		private System.Windows.Forms.Button pathButton;
+		private System.Windows.Forms.Button centroidButton;
 	}
 }
 
