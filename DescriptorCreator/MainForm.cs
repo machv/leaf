@@ -14,7 +14,9 @@ namespace DescriptorCreator
 	public partial class MainForm : Form
 	{
 		private Image revertPic;
+		private Bitmap threshold;
 		private IList<Point> contourPoints;
+		private Point centroid;
 
 		public MainForm()
 		{
@@ -95,6 +97,8 @@ namespace DescriptorCreator
 						
 					}
 				}
+			this.threshold = image;
+
 			return image;
 		}
 
@@ -206,28 +210,73 @@ namespace DescriptorCreator
 
 		private void centroidButton_Click(object sender, EventArgs e)
 		{
-			var a = 0;
-			var cx = 0;
-			var cy = 0;
+			var centroid = new Point();
+			var image = this.threshold;
 
-			//centroid formula
-			for (var i = 0; i < this.contourPoints.Count() - 1; i++)
+			try
 			{
-				var xi = this.contourPoints.ElementAt(i).X;
-				var xii = this.contourPoints.ElementAt(i + 1).X;
-				var yi = this.contourPoints.ElementAt(i).Y;
-				var yii = this.contourPoints.ElementAt(i + 1).Y;
+				var list = new List<Point>();
+				for (var i = 0; i < image.Width; i++)
+					for (var j = 0; j < image.Height; j++)
+					{
+						if (image.GetPixel(i, j) == Color.FromArgb(0, 0, 0))
+						{
+							if ((i - 1 > 0 && i + 1 < image.Width && j - 1 > 0 && j + 1 < image.Height) &&
+								!(image.GetPixel(i, j + 1) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i, j - 1) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i + 1, j) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i - 1, j) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i + 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i + 1, j - 1) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i - 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+								image.GetPixel(i - 1, j - 1) == Color.FromArgb(0, 0, 0)))
+								list.Add(new Point(i, j));
+						}
+					}
 
-				a += xi*yii - xii*yi;
-				cx += (xi + xii)*(xi*yii - xii*yi);
-				cy += (yi + yii)*(xi*yii - xii*yi);
+				centroid = ImageProcessing.Centroid(list);
+			}
+			catch
+			{}
+
+			var cx = centroid.X >= 0 ? centroid.X : 0;
+			var cy = centroid.Y >= 0 ? centroid.Y : 0;
+
+			this.centroid = centroid;
+
+			image = (Bitmap)this.LeafPicture.Image.Clone();
+
+			image.SetPixel(cx,cy,Color.Black);
+			image.SetPixel(cx+1, cy, Color.Black);
+			image.SetPixel(cx, cy+1, Color.Black);
+			image.SetPixel(cx+1, cy+1, Color.Black);
+
+			this.LeafPicture.Image = (Image)image.Clone();
+		}
+
+		private void centroidLinesButton_Click(object sender, EventArgs e)
+		{
+			var image = (Bitmap) this.LeafPicture.Image;
+
+			const double step = Math.PI/72;
+			const double EPSILON = 0.005;
+			var y = this.centroid.Y;
+			var x = image.Width - centroid.X;
+
+			var g = Graphics.FromImage(image);
+
+			for (var i = 1; i <= Math.PI/2/step; i++)
+			{
+				var points = this.contourPoints.Where(p => ((p.X > centroid.X) 
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 2 - i * step)) < 3/step*Math.PI/ i * EPSILON)));
+
+				if (points.Count() > 0)
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+
+					
 			}
 
-			a /= 2;
-			cx /= 6*a;
-			cy /= 6*a;
-
-			((Bitmap)this.LeafPicture.Image).SetPixel(cx,cy,Color.Black);
+			this.LeafPicture.Image = image;
 		}
 	}
 }

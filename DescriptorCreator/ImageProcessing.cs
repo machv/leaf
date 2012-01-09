@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -103,6 +104,55 @@ namespace DescriptorCreator
 				}
 			}
 			return threshold;
+		}
+
+		public static Point Centroid(IList<Point> contourPoints)
+		{
+			var a = 0F;
+			var cx = 0F;
+			var cy = 0F;
+
+			//contourPoints = OrderClockwise(contourPoints);
+
+			var convex = new ConvexPath().ComputePath(contourPoints.Select(contourPoint => new MyPoint(contourPoint.X, contourPoint.Y)).ToList());
+			//var convex = new ConvexPath().ComputePath(contourPoints.Select(contourPoint => new MyPoint(contourPoint.X, contourPoint.Y)).ToList());
+
+			var first = convex[0];
+			contourPoints.Clear();
+			do
+			{
+				contourPoints.Add(new Point(first.Bod.SurX,first.Bod.SurY));
+			    first = first.Descendant;
+			}
+			while (!first.Prvy);
+			
+			//centroid formula
+			for (var i = 0; i < contourPoints.Count() - 1; i++)
+			{
+				var xi = contourPoints.ElementAt(i).X;
+				var xii = contourPoints.ElementAt(i + 1).X;
+				var yi = contourPoints.ElementAt(i).Y;
+				var yii = contourPoints.ElementAt(i + 1).Y;
+
+				a += xi * yii - xii * yi;
+				cx += (xi + xii) * (xi * yii - xii * yi);
+				cy += (yi + yii) * (xi * yii - xii * yi);
+			}
+
+			a /= 2;
+			cx /= 6 * a;
+			cy /= 6 * a;
+
+			return new Point(Convert.ToInt32(cx), Convert.ToInt32(cy));
+		}
+
+		private static IList<Point> OrderClockwise(IList<Point> list)
+		{
+			list = (from c in list
+			       orderby c.X descending 
+			       select c).ToList();
+
+			return list;
 		}
 	}
 }

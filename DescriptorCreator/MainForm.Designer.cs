@@ -39,9 +39,10 @@
 			this.ArgbLabel = new System.Windows.Forms.Label();
 			this.RevertButton = new System.Windows.Forms.Button();
 			this.controlPanel = new System.Windows.Forms.Panel();
+			this.centroidButton = new System.Windows.Forms.Button();
 			this.pathButton = new System.Windows.Forms.Button();
 			this.NormalizeTreshold = new System.Windows.Forms.NumericUpDown();
-			this.centroidButton = new System.Windows.Forms.Button();
+			this.centroidLinesButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.LeafPicture)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.controlPanel.SuspendLayout();
@@ -64,7 +65,7 @@
 			this.NormalizeColors.Name = "NormalizeColors";
 			this.NormalizeColors.Size = new System.Drawing.Size(140, 43);
 			this.NormalizeColors.TabIndex = 1;
-			this.NormalizeColors.Text = "Normalize colors";
+			this.NormalizeColors.Text = "Threshold";
 			this.NormalizeColors.UseVisualStyleBackColor = true;
 			this.NormalizeColors.Click += new System.EventHandler(this.NormalizeColors_Click);
 			// 
@@ -136,6 +137,7 @@
 			// 
 			// controlPanel
 			// 
+			this.controlPanel.Controls.Add(this.centroidLinesButton);
 			this.controlPanel.Controls.Add(this.centroidButton);
 			this.controlPanel.Controls.Add(this.pathButton);
 			this.controlPanel.Controls.Add(this.RevertButton);
@@ -145,6 +147,16 @@
 			this.controlPanel.Name = "controlPanel";
 			this.controlPanel.Size = new System.Drawing.Size(202, 445);
 			this.controlPanel.TabIndex = 6;
+			// 
+			// centroidButton
+			// 
+			this.centroidButton.Location = new System.Drawing.Point(16, 139);
+			this.centroidButton.Name = "centroidButton";
+			this.centroidButton.Size = new System.Drawing.Size(140, 40);
+			this.centroidButton.TabIndex = 7;
+			this.centroidButton.Text = "Draw Centroid";
+			this.centroidButton.UseVisualStyleBackColor = true;
+			this.centroidButton.Click += new System.EventHandler(this.centroidButton_Click);
 			// 
 			// pathButton
 			// 
@@ -158,7 +170,7 @@
 			// 
 			// NormalizeTreshold
 			// 
-			this.NormalizeTreshold.Location = new System.Drawing.Point(16, 54);
+			this.NormalizeTreshold.Location = new System.Drawing.Point(36, 53);
 			this.NormalizeTreshold.Maximum = new decimal(new int[] {
             255,
             0,
@@ -174,15 +186,15 @@
 			this.NormalizeTreshold.TabIndex = 4;
 			this.NormalizeTreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
-			// centroidButton
+			// centroidLinesButton
 			// 
-			this.centroidButton.Location = new System.Drawing.Point(16, 139);
-			this.centroidButton.Name = "centroidButton";
-			this.centroidButton.Size = new System.Drawing.Size(140, 40);
-			this.centroidButton.TabIndex = 7;
-			this.centroidButton.Text = "Draw Centroid";
-			this.centroidButton.UseVisualStyleBackColor = true;
-			this.centroidButton.Click += new System.EventHandler(this.centroidButton_Click);
+			this.centroidLinesButton.Location = new System.Drawing.Point(16, 185);
+			this.centroidLinesButton.Name = "centroidLinesButton";
+			this.centroidLinesButton.Size = new System.Drawing.Size(140, 40);
+			this.centroidLinesButton.TabIndex = 8;
+			this.centroidLinesButton.Text = "Draw Centroid Lines";
+			this.centroidLinesButton.UseVisualStyleBackColor = true;
+			this.centroidLinesButton.Click += new System.EventHandler(this.centroidLinesButton_Click);
 			// 
 			// MainForm
 			// 
@@ -222,6 +234,7 @@
 		private System.Windows.Forms.NumericUpDown NormalizeTreshold;
 		private System.Windows.Forms.Button pathButton;
 		private System.Windows.Forms.Button centroidButton;
+		private System.Windows.Forms.Button centroidLinesButton;
 	}
 }
 
