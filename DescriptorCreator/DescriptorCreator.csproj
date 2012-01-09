@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ConvexPath.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Hsv.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
