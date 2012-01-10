@@ -259,43 +259,51 @@ namespace DescriptorCreator
 		{
 			var image = (Bitmap) this.LeafPicture.Image;
 
-			const double step = Math.PI/72;
-			const double EPSILON = 0.005;
-			var y = this.centroid.Y;
-			var x = image.Width - centroid.X;
+			const int step = 10; //divide PI/2 into *step* pieces
+			const double EPSILON = 0.01;
+			//var y = this.centroid.Y;
+			//var x = image.Width - centroid.X;
 
 			var g = Graphics.FromImage(image);
 
-			for (var i = 1; i <= Math.PI / 2 / step; i++)
+			//var ftan = Math.Tan(Math.PI / 4 - 1 * Math.PI / 4 / step);
+			for (var i = 1; i <= step; i++)
 			{
-				var points = this.contourPoints.Where(p => ((p.X > centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 2 - i * step)) < 3 / step * Math.PI / i * EPSILON)));
+
+				var tan = Math.Tan(Math.PI/4 - i*Math.PI/4/step + Math.PI/4);
+				var points = this.contourPoints.Where(p => ((p.X >= centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
 
 				if (points.Count() > 0)
 					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
-
-
-			}
-
-			for (var i = 0; i <= Math.PI / 2 / step; i++)
-			{
-				var points = this.contourPoints.Where(p => ((p.X > centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 1 - i * step + Math.PI)) < 3 / step * Math.PI / i * EPSILON)));
-
-				if (points.Count() > 0)
+				else
 				{
-					points = i%2 == 0
-					         	? (from c in points
-					         	   orderby c.Distance(centroid) descending
-					         	   select c)
-					         	: (from c in points
-					         	   orderby c.Distance(centroid) ascending
-					         	   select c);
-
-					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
-
+					//var tg = Math.Tan(Math.PI/4 - i*Math.PI/4/step);
+					var x = tan != 0 ?  Convert.ToInt32(centroid.Y/tan) : 0;
+					g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(x + centroid.X, 0));
 				}
+
 			}
+
+			//for (var i = 0; i <= Math.PI / 2 / step; i++)
+			//{
+			//    var points = this.contourPoints.Where(p => ((p.X > centroid.X)
+			//        && (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI - i * step + Math.PI)) < /*3 / step * Math.PI / i **/ EPSILON)));
+
+			//    if (points.Count() > 0)
+			//    {
+			//        points = i%2 == 0
+			//                    ? (from c in points
+			//                       orderby c.Distance(centroid) descending
+			//                       select c)
+			//                    : (from c in points
+			//                       orderby c.Distance(centroid) ascending
+			//                       select c);
+
+			//        g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+
+			//    }
+			//}
 
 			this.LeafPicture.Image = image;
 		}
