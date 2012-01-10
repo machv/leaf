@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ExtesionsColor;
 using ExtensionsBitmap;
+using ExtensionsPoint;
 
 namespace DescriptorCreator
 {
@@ -265,15 +266,35 @@ namespace DescriptorCreator
 
 			var g = Graphics.FromImage(image);
 
-			for (var i = 1; i <= Math.PI/2/step; i++)
+			for (var i = 1; i <= Math.PI / 2 / step; i++)
 			{
-				var points = this.contourPoints.Where(p => ((p.X > centroid.X) 
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 2 - i * step)) < 3/step*Math.PI/ i * EPSILON)));
+				var points = this.contourPoints.Where(p => ((p.X > centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 2 - i * step)) < 3 / step * Math.PI / i * EPSILON)));
 
 				if (points.Count() > 0)
 					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
 
-					
+
+			}
+
+			for (var i = 0; i <= Math.PI / 2 / step; i++)
+			{
+				var points = this.contourPoints.Where(p => ((p.X > centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - Math.Tan(Math.PI / 1 - i * step + Math.PI)) < 3 / step * Math.PI / i * EPSILON)));
+
+				if (points.Count() > 0)
+				{
+					points = i%2 == 0
+					         	? (from c in points
+					         	   orderby c.Distance(centroid) descending
+					         	   select c)
+					         	: (from c in points
+					         	   orderby c.Distance(centroid) ascending
+					         	   select c);
+
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+
+				}
 			}
 
 			this.LeafPicture.Image = image;

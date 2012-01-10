@@ -138,3 +138,14 @@ namespace ExtensionsBitmap
 		}
 	}
 }
+
+namespace ExtensionsPoint
+{
+	public static class ExtensionsPoint
+	{
+		public static double Distance(this Point source, Point destination)
+		{
+			return Math.Sqrt(Math.Abs(source.X - destination.X) ^ 2 + Math.Abs(source.Y - destination.Y) ^ 2);
+		}
+	}
+}
