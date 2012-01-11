@@ -147,5 +147,53 @@ namespace ExtensionsPoint
 		{
 			return Math.Sqrt(Math.Abs(source.X - destination.X) ^ 2 + Math.Abs(source.Y - destination.Y) ^ 2);
 		}
+
+		public static bool RedAround(this Point source, Bitmap image)
+		{
+			var pixels = new List<Color>();
+
+			try
+			{
+				pixels.Add(image.GetPixel(source.X,source.Y+1));
+			}
+			catch {}
+			try
+			{
+				pixels.Add(image.GetPixel(source.X,source.Y-1));
+			}
+			catch {}
+			try
+			{
+				pixels.Add(image.GetPixel(source.X+1,source.Y));
+			}
+			catch {}
+			try
+			{
+				pixels.Add(image.GetPixel(source.X + 1, source.Y+1));
+			}
+			catch { }
+			try
+			{
+				pixels.Add(image.GetPixel(source.X + 1, source.Y - 1));
+			}
+			catch { }
+			try
+			{
+				pixels.Add(image.GetPixel(source.X - 1, source.Y));
+			}
+			catch { }
+			try
+			{
+				pixels.Add(image.GetPixel(source.X - 1, source.Y+1));
+			}
+			catch { }
+			try
+			{
+				pixels.Add(image.GetPixel(source.X - 1, source.Y-1));
+			}
+			catch { }
+
+			return pixels.Where(p => (p.ToArgb() == Color.Red.ToArgb())).Count() > 0;
+		}
 	}
 }
