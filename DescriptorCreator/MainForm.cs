@@ -290,7 +290,7 @@ namespace DescriptorCreator
 				{
 					//var tg = Math.Tan(Math.PI/4 - i*Math.PI/4/step);
 					var x = tan != 0 ? Convert.ToInt32(centroid.Y / tan) : 0;
-					if (x < image.Width - centroid.X)
+					if (x < (image.Width - centroid.X))
 					{
 						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(x + centroid.X, 0));
 						
@@ -436,6 +436,174 @@ namespace DescriptorCreator
 						refPoints.Add(p);
 
 						g.DrawLine(new Pen(Color.White), centroid, new Point(image.Width - 1, y));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+				}
+			}
+
+			//round 5
+			for (var i = 1; i <= step; i++)
+			{
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -3 * Math.PI / 4);
+				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+
+				if (points.Count() > 0)
+				{
+					points = (from c in points
+							  orderby c.Distance(centroid) descending
+							  select c);
+
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+					refPoints.Add(points.First());
+				}
+				else
+				{
+					var x = tan != 0 ? Convert.ToInt32((centroid.Y - image.Height + 1) / tan) : 0;
+					if (x + centroid.X > 0)
+					{
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(centroid.X + x, image.Height - 1));
+
+						var p = this.IntersectionPoint(image, new Point(centroid.X + x, image.Height - 1), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(x + centroid.X, image.Height - 1));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+					else
+					{
+						var y = centroid.Y - Convert.ToInt32(tan * (-centroid.X));
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(0, y));
+						var p = this.IntersectionPoint(image, new Point(0, y), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(0, y));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+				}
+			}
+
+			//round 6
+			for (var i = 1; i <= step; i++)
+			{
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -4 * Math.PI / 4);
+				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+
+				if (points.Count() > 0)
+				{
+					points = (from c in points
+							  orderby c.Distance(centroid) descending
+							  select c);
+
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+					refPoints.Add(points.First());
+				}
+				else
+				{
+					var x = tan != 0 ? Convert.ToInt32((centroid.Y - image.Height + 1) / tan) : 0;
+					if (x + centroid.X > 0)
+					{
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(centroid.X + x, image.Height - 1));
+
+						var p = this.IntersectionPoint(image, new Point(centroid.X + x, image.Height - 1), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(x + centroid.X, image.Height - 1));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+					else
+					{
+						var y = centroid.Y - Convert.ToInt32(tan * (-centroid.X));
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(0, y));
+						var p = this.IntersectionPoint(image, new Point(0, y), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(0, y));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+				}
+			}
+
+			//round 7
+			for (var i = 1; i <= step; i++)
+			{
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -5 * Math.PI / 4);
+				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+
+				if (points.Count() > 0)
+				{
+					points = (from c in points
+							  orderby c.Distance(centroid) descending
+							  select c);
+
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+					refPoints.Add(points.First());
+				}
+				else
+				{
+					var x = tan != 0 ? Convert.ToInt32((centroid.Y) / tan) : 0;
+					if (x + centroid.X > 0)
+					{
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(centroid.X + x, 0));
+
+						var p = this.IntersectionPoint(image, new Point(centroid.X + x, 0), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(x + centroid.X, 0));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+					else
+					{
+						var y = centroid.Y - Convert.ToInt32(tan * (-centroid.X));
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(0, y));
+						var p = this.IntersectionPoint(image, new Point(0, y), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(0, y));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+				}
+			}
+
+			//round 8
+			for (var i = 1; i <= step; i++)
+			{
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -6 * Math.PI / 4);
+				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+
+				if (points.Count() > 0)
+				{
+					points = (from c in points
+							  orderby c.Distance(centroid) descending
+							  select c);
+
+					g.DrawLine(new Pen(Color.Blue), centroid, points.First());
+					refPoints.Add(points.First());
+				}
+				else
+				{
+					var x = tan != 0 ? Convert.ToInt32((centroid.Y) / tan) : 0;
+					if (x + centroid.X > 0)
+					{
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(centroid.X + x, 0));
+
+						var p = this.IntersectionPoint(image, new Point(centroid.X + x, 0), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(x + centroid.X, 0));
+						g.DrawLine(new Pen(Color.Blue), centroid, p);
+					}
+					else
+					{
+						var y = centroid.Y - Convert.ToInt32(tan * (-centroid.X));
+						g.DrawLine(new Pen(Color.ForestGreen), centroid, new Point(0, y));
+						var p = this.IntersectionPoint(image, new Point(0, y), centroid, false);
+						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(0, y));
 						g.DrawLine(new Pen(Color.Blue), centroid, p);
 					}
 				}
