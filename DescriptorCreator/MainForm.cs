@@ -259,23 +259,20 @@ namespace DescriptorCreator
 		{
 			var image = (Bitmap) this.LeafPicture.Image;
 
-			const int step = 20; //divide PI/2 into *step* pieces
+			const int STEP = 20; //divide PI/2 into *step* pieces
 			const double EPSILON = 0.01;
-			//var y = this.centroid.Y;
-			//var x = image.Width - centroid.X;
 
 			var g = Graphics.FromImage(image);
 
 			var refPoints = new List<Point>();
 
-			//var ftan = Math.Tan(Math.PI / 4 - 1 * Math.PI / 4 / step);
 			//round 1
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
 
-				var tan = Math.Tan(Math.PI/4 - i*Math.PI/4/step + Math.PI/4);
+				var tan = Math.Tan(Math.PI/4 - i*Math.PI/4/STEP + Math.PI/4);
 				var points = this.contourPoints.Where(p => ((p.X >= centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -288,7 +285,6 @@ namespace DescriptorCreator
 				}
 				else
 				{
-					//var tg = Math.Tan(Math.PI/4 - i*Math.PI/4/step);
 					var x = tan != 0 ? Convert.ToInt32(centroid.Y / tan) : 0;
 					if (x < (image.Width - centroid.X))
 					{
@@ -309,18 +305,17 @@ namespace DescriptorCreator
 
 						g.DrawLine(new Pen(Color.White), centroid, new Point(image.Width - 1, y));
 						g.DrawLine(new Pen(Color.Blue), centroid, p);
-						//image.SetPixel(image.Width - 1, y, Color.Yellow);
 					}
 				}
 
 			}
 
 			//round 2
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + 0*Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + 0*Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X >= centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -358,11 +353,11 @@ namespace DescriptorCreator
 			}
 
 			//round 3
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -1 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -1 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X >= centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -400,11 +395,11 @@ namespace DescriptorCreator
 			}
 
 			//round 4
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -2 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -2 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X >= centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -442,11 +437,11 @@ namespace DescriptorCreator
 			}
 
 			//round 5
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -3 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -3 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -484,11 +479,11 @@ namespace DescriptorCreator
 			}
 
 			//round 6
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -4 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -4 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -526,11 +521,11 @@ namespace DescriptorCreator
 			}
 
 			//round 7
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -5 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -5 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
@@ -568,11 +563,11 @@ namespace DescriptorCreator
 			}
 
 			//round 8
-			for (var i = 1; i <= step; i++)
+			for (var i = 1; i <= STEP; i++)
 			{
-				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / step + -6 * Math.PI / 4);
+				var tan = Math.Tan(Math.PI / 4 - i * Math.PI / 4 / STEP + -6 * Math.PI / 4);
 				var points = this.contourPoints.Where(p => ((p.X < centroid.X)
-					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < /*(2 / (ftan + 1 - tan)) +*/ EPSILON)));
+					&& (Math.Abs((double)(centroid.Y - p.Y) / (p.X - centroid.X) - tan) < EPSILON)));
 
 				if (points.Count() > 0)
 				{
