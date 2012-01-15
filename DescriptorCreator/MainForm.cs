@@ -142,7 +142,8 @@ namespace DescriptorCreator
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Application.Exit();
+			var quit = MessageBox.Show("Are you sure you want to quit the application?", "Quit", MessageBoxButtons.YesNo);
+			if (quit == DialogResult.Yes) Application.Exit();
 		}
 
 		private void pathButton_Click(object sender, EventArgs e)
@@ -158,53 +159,11 @@ namespace DescriptorCreator
 				try
 				{
 					image.SetPixel(contourPoint.X, contourPoint.Y, Color.Red);
-
-					//image.SetPixel(contourPoint.X, contourPoint.Y+1, Color.Red);
-					//image.SetPixel(contourPoint.X, contourPoint.Y-1, Color.Red);
-					//image.SetPixel(contourPoint.X+1, contourPoint.Y+1, Color.Red);
-					//image.SetPixel(contourPoint.X+1, contourPoint.Y-1, Color.Red);
-					//image.SetPixel(contourPoint.X-1, contourPoint.Y+1, Color.Red);
-					//image.SetPixel(contourPoint.X-1, contourPoint.Y-1, Color.Red);
-					//image.SetPixel(contourPoint.X+1, contourPoint.Y, Color.Red);
-					//image.SetPixel(contourPoint.X-1, contourPoint.Y, Color.Red);
 				}
 				catch
 				{}
 				
 			}
-
-			//var list = new List<MyPoint>();
-
-			//for (var i = 0; i < image.Width; i++)
-			//    for (var j = 0; j < image.Height; j++)
-			//    {
-			//        if (image.GetPixel(i, j) == Color.FromArgb(0,0,0))
-			//        {
-			//            if ((i-1 > 0 && i+1 < image.Width && j-1 > 0 && j+1 < image.Height)&&
-			//                !(image.GetPixel(i, j + 1) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i, j - 1) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i + 1, j) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i - 1, j) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i + 1, j + 1) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i + 1, j - 1) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i - 1, j + 1) == Color.FromArgb(0, 0, 0) &&
-			//                image.GetPixel(i - 1, j - 1) == Color.FromArgb(0, 0, 0)))
-			//                list.Add(new MyPoint(i, j));
-			//        }
-			//    }
-
-			//var path = new ConvexPath().ComputePath(list);
-
-			//Graphics g = Graphics.FromImage(image);
-
-			//Vektor firts = path.ElementAt(0);
-
-			//do
-			//{
-			//    g.DrawLine(new Pen(Color.Red), firts.Bod.SurX, firts.Bod.SurY, firts.Descendant.Bod.SurX, firts.Descendant.Bod.SurY);
-			//    firts = firts.Descendant;
-			//}
-			//while (!firts.Prvy);
 
 			this.LeafPicture.Image = image;
 		}
