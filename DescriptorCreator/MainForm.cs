@@ -686,5 +686,13 @@ namespace DescriptorCreator
 
 			return point;
 		}
+		
+        private void buttonHistogram_Click(object sender, EventArgs e)
+        {
+            Bitmap image = (Bitmap)this.LeafPicture.Image;
+            long[] histogram = image.GetHueHistogram();
+
+            histogramaDesenat1.DrawHistogram(histogram);
+        }
 	}
 }
