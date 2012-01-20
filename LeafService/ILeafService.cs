@@ -12,5 +12,8 @@ namespace LeafService
 	{
 		[OperationContract]
 		string SayHello();
+
+        RecognizedLeaf Recognize(Descriptor[] descriptors, int noAnswers);
+        bool Learn(Descriptor[] descriptors, byte picture, string treeName, SenderInfo senderInfo);
 	}
 }
