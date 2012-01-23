@@ -13,7 +13,7 @@ namespace LeafService
 		[OperationContract]
 		string SayHello();
 
-        RecognizedLeaf Recognize(Descriptor[] descriptors, int noAnswers);
-        bool Learn(Descriptor[] descriptors, byte picture, string treeName, SenderInfo senderInfo);
+        RecognizedLeaf Recognize(string picture, int noAnswers);
+        bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo);
 	}
 }

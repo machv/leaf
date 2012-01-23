@@ -14,12 +14,13 @@ namespace LeafService
             return "Hello world!";
         }
 
-        public RecognizedLeaf Recognize(Descriptor[] descriptors, int noAnswers = 3)
+        public RecognizedLeaf Recognize(string picture, int noAnswers = 3)
         {
+			// prijima obrazek jako string zakodovany v base64, ten se rozkoduje do Bitmapy, vypocita deskriptor, a hleda
             throw new NotImplementedException();
         }
 
-        public bool Learn(Descriptor[] descriptors, byte picture, string treeName, SenderInfo senderInfo)
+        public bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo)
         {
             throw new NotImplementedException();
         }
