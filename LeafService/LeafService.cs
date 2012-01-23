@@ -17,6 +17,7 @@ namespace LeafService
         public RecognizedLeaf Recognize(string picture, int noAnswers = 3)
         {
 			// prijima obrazek jako string zakodovany v base64, ten se rozkoduje do Bitmapy, vypocita deskriptor, a hleda
+			//http://stackoverflow.com/questions/6807283/transferring-byte-array-from-soap-service-to-android
             throw new NotImplementedException();
         }
 
