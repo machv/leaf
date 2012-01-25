@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvexPath.cs" />
+    <Compile Include="EdgeDetection.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HistogramaDesenat.cs">
       <SubType>UserControl</SubType>

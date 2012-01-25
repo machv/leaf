@@ -39,12 +39,13 @@
             this.ArgbLabel = new System.Windows.Forms.Label();
             this.RevertButton = new System.Windows.Forms.Button();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.histogramaDesenat1 = new Histograma.HistogramaDesenat();
+            this.buttonHistogram = new System.Windows.Forms.Button();
             this.centroidLinesButton = new System.Windows.Forms.Button();
             this.centroidButton = new System.Windows.Forms.Button();
             this.pathButton = new System.Windows.Forms.Button();
             this.NormalizeTreshold = new System.Windows.Forms.NumericUpDown();
-            this.buttonHistogram = new System.Windows.Forms.Button();
-            this.histogramaDesenat1 = new Histograma.HistogramaDesenat();
+            this.buttonEdgeDetection = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LeafPicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.controlPanel.SuspendLayout();
@@ -139,6 +140,7 @@
             // 
             // controlPanel
             // 
+            this.controlPanel.Controls.Add(this.buttonEdgeDetection);
             this.controlPanel.Controls.Add(this.histogramaDesenat1);
             this.controlPanel.Controls.Add(this.buttonHistogram);
             this.controlPanel.Controls.Add(this.centroidLinesButton);
@@ -151,6 +153,26 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(202, 445);
             this.controlPanel.TabIndex = 6;
+            // 
+            // histogramaDesenat1
+            // 
+            this.histogramaDesenat1.DisplayColor = System.Drawing.Color.Black;
+            this.histogramaDesenat1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.histogramaDesenat1.Location = new System.Drawing.Point(3, 309);
+            this.histogramaDesenat1.Name = "histogramaDesenat1";
+            this.histogramaDesenat1.Offset = 20;
+            this.histogramaDesenat1.Size = new System.Drawing.Size(196, 96);
+            this.histogramaDesenat1.TabIndex = 10;
+            // 
+            // buttonHistogram
+            // 
+            this.buttonHistogram.Location = new System.Drawing.Point(16, 411);
+            this.buttonHistogram.Name = "buttonHistogram";
+            this.buttonHistogram.Size = new System.Drawing.Size(75, 23);
+            this.buttonHistogram.TabIndex = 9;
+            this.buttonHistogram.Text = "Histogram";
+            this.buttonHistogram.UseVisualStyleBackColor = true;
+            this.buttonHistogram.Click += new System.EventHandler(this.buttonHistogram_Click);
             // 
             // centroidLinesButton
             // 
@@ -200,25 +222,15 @@
             this.NormalizeTreshold.TabIndex = 4;
             this.NormalizeTreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // buttonHistogram
+            // buttonEdgeDetection
             // 
-            this.buttonHistogram.Location = new System.Drawing.Point(16, 411);
-            this.buttonHistogram.Name = "buttonHistogram";
-            this.buttonHistogram.Size = new System.Drawing.Size(75, 23);
-            this.buttonHistogram.TabIndex = 9;
-            this.buttonHistogram.Text = "Histogram";
-            this.buttonHistogram.UseVisualStyleBackColor = true;
-            this.buttonHistogram.Click += new System.EventHandler(this.buttonHistogram_Click);
-            // 
-            // histogramaDesenat1
-            // 
-            this.histogramaDesenat1.DisplayColor = System.Drawing.Color.Black;
-            this.histogramaDesenat1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.histogramaDesenat1.Location = new System.Drawing.Point(3, 309);
-            this.histogramaDesenat1.Name = "histogramaDesenat1";
-            this.histogramaDesenat1.Offset = 20;
-            this.histogramaDesenat1.Size = new System.Drawing.Size(196, 96);
-            this.histogramaDesenat1.TabIndex = 10;
+            this.buttonEdgeDetection.Location = new System.Drawing.Point(16, 231);
+            this.buttonEdgeDetection.Name = "buttonEdgeDetection";
+            this.buttonEdgeDetection.Size = new System.Drawing.Size(140, 40);
+            this.buttonEdgeDetection.TabIndex = 11;
+            this.buttonEdgeDetection.Text = "Edge Detection";
+            this.buttonEdgeDetection.UseVisualStyleBackColor = true;
+            this.buttonEdgeDetection.Click += new System.EventHandler(this.buttonEdgeDetection_Click);
             // 
             // MainForm
             // 
@@ -261,6 +273,7 @@
 		private System.Windows.Forms.Button centroidLinesButton;
         private System.Windows.Forms.Button buttonHistogram;
         private Histograma.HistogramaDesenat histogramaDesenat1;
+        private System.Windows.Forms.Button buttonEdgeDetection;
 	}
 }
 

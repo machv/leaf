@@ -694,5 +694,13 @@ namespace DescriptorCreator
 
             histogramaDesenat1.DrawHistogram(histogram);
         }
+
+        private void buttonEdgeDetection_Click(object sender, EventArgs e)
+        {
+            EdgeDetection ed = new EdgeDetection();
+            Image edged = ed.Detect(LeafPicture.Image);
+
+            LeafPicture.Image = edged;
+        }
 	}
 }
