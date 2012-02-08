@@ -36,19 +36,20 @@
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.referencialPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.getListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.drawLinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ArgbLabel = new System.Windows.Forms.Label();
 			this.RevertButton = new System.Windows.Forms.Button();
 			this.controlPanel = new System.Windows.Forms.Panel();
 			this.buttonEdgeDetection = new System.Windows.Forms.Button();
+			this.histogramaDesenat1 = new Histograma.HistogramaDesenat();
 			this.buttonHistogram = new System.Windows.Forms.Button();
 			this.centroidLinesButton = new System.Windows.Forms.Button();
 			this.centroidButton = new System.Windows.Forms.Button();
 			this.pathButton = new System.Windows.Forms.Button();
 			this.NormalizeTreshold = new System.Windows.Forms.NumericUpDown();
-			this.referencialPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.getListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.histogramaDesenat1 = new Histograma.HistogramaDesenat();
-			this.drawLinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.drawDescriptorHistorgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.LeafPicture)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.controlPanel.SuspendLayout();
@@ -124,6 +125,30 @@
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
 			this.aboutToolStripMenuItem.Text = "About";
 			// 
+			// referencialPointsToolStripMenuItem
+			// 
+			this.referencialPointsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.getListToolStripMenuItem,
+            this.drawLinesToolStripMenuItem,
+            this.drawDescriptorHistorgramToolStripMenuItem});
+			this.referencialPointsToolStripMenuItem.Name = "referencialPointsToolStripMenuItem";
+			this.referencialPointsToolStripMenuItem.Size = new System.Drawing.Size(113, 20);
+			this.referencialPointsToolStripMenuItem.Text = "Referencial Points";
+			// 
+			// getListToolStripMenuItem
+			// 
+			this.getListToolStripMenuItem.Name = "getListToolStripMenuItem";
+			this.getListToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.getListToolStripMenuItem.Text = "Get list";
+			this.getListToolStripMenuItem.Click += new System.EventHandler(this.getListToolStripMenuItem_Click);
+			// 
+			// drawLinesToolStripMenuItem
+			// 
+			this.drawLinesToolStripMenuItem.Name = "drawLinesToolStripMenuItem";
+			this.drawLinesToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.drawLinesToolStripMenuItem.Text = "Draw lines";
+			this.drawLinesToolStripMenuItem.Click += new System.EventHandler(this.drawLinesToolStripMenuItem_Click);
+			// 
 			// ArgbLabel
 			// 
 			this.ArgbLabel.AutoSize = true;
@@ -167,6 +192,16 @@
 			this.buttonEdgeDetection.Text = "Edge Detection";
 			this.buttonEdgeDetection.UseVisualStyleBackColor = true;
 			this.buttonEdgeDetection.Click += new System.EventHandler(this.buttonEdgeDetection_Click);
+			// 
+			// histogramaDesenat1
+			// 
+			this.histogramaDesenat1.DisplayColor = System.Drawing.Color.Black;
+			this.histogramaDesenat1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.histogramaDesenat1.Location = new System.Drawing.Point(3, 309);
+			this.histogramaDesenat1.Name = "histogramaDesenat1";
+			this.histogramaDesenat1.Offset = 20;
+			this.histogramaDesenat1.Size = new System.Drawing.Size(196, 96);
+			this.histogramaDesenat1.TabIndex = 10;
 			// 
 			// buttonHistogram
 			// 
@@ -226,38 +261,12 @@
 			this.NormalizeTreshold.TabIndex = 4;
 			this.NormalizeTreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
-			// referencialPointsToolStripMenuItem
+			// drawDescriptorHistorgramToolStripMenuItem
 			// 
-			this.referencialPointsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getListToolStripMenuItem,
-            this.drawLinesToolStripMenuItem});
-			this.referencialPointsToolStripMenuItem.Name = "referencialPointsToolStripMenuItem";
-			this.referencialPointsToolStripMenuItem.Size = new System.Drawing.Size(113, 20);
-			this.referencialPointsToolStripMenuItem.Text = "Referencial Points";
-			// 
-			// getListToolStripMenuItem
-			// 
-			this.getListToolStripMenuItem.Name = "getListToolStripMenuItem";
-			this.getListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.getListToolStripMenuItem.Text = "Get list";
-			this.getListToolStripMenuItem.Click += new System.EventHandler(this.getListToolStripMenuItem_Click);
-			// 
-			// histogramaDesenat1
-			// 
-			this.histogramaDesenat1.DisplayColor = System.Drawing.Color.Black;
-			this.histogramaDesenat1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.histogramaDesenat1.Location = new System.Drawing.Point(3, 309);
-			this.histogramaDesenat1.Name = "histogramaDesenat1";
-			this.histogramaDesenat1.Offset = 20;
-			this.histogramaDesenat1.Size = new System.Drawing.Size(196, 96);
-			this.histogramaDesenat1.TabIndex = 10;
-			// 
-			// drawLinesToolStripMenuItem
-			// 
-			this.drawLinesToolStripMenuItem.Name = "drawLinesToolStripMenuItem";
-			this.drawLinesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.drawLinesToolStripMenuItem.Text = "Draw lines";
-			this.drawLinesToolStripMenuItem.Click += new System.EventHandler(this.drawLinesToolStripMenuItem_Click);
+			this.drawDescriptorHistorgramToolStripMenuItem.Name = "drawDescriptorHistorgramToolStripMenuItem";
+			this.drawDescriptorHistorgramToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.drawDescriptorHistorgramToolStripMenuItem.Text = "Draw descriptor histogram";
+			this.drawDescriptorHistorgramToolStripMenuItem.Click += new System.EventHandler(this.drawDescriptorHistorgramToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -304,6 +313,7 @@
 		private System.Windows.Forms.ToolStripMenuItem referencialPointsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem getListToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem drawLinesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem drawDescriptorHistorgramToolStripMenuItem;
 	}
 }
 

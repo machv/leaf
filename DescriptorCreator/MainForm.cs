@@ -70,7 +70,6 @@ namespace DescriptorCreator
 					if (image.GetPixel(i, j).R > key)
 					{
 						if (!wasWhite && i > 0)
-							//image.SetPixel(i,j-1,Color.Red);
 							this.contourPoints.Add(new Point(i-1,j));
 
 						image.SetPixel(i, j, Color.White);
@@ -80,7 +79,6 @@ namespace DescriptorCreator
 					{
 						if (wasWhite)
 						{
-							//image.SetPixel(i, j, Color.Red);
 							this.contourPoints.Add(new Point(i, j));
 							image.SetPixel(i, j, Color.Black);
 						}
@@ -170,34 +168,10 @@ namespace DescriptorCreator
 
 		private void centroidButton_Click(object sender, EventArgs e)
 		{
-			var centroid = new Point();
+			Point centroid;
 			var image = this.threshold;
 
-			try
-			{
-				var list = new List<Point>();
-				for (var i = 0; i < image.Width; i++)
-					for (var j = 0; j < image.Height; j++)
-					{
-						if (image.GetPixel(i, j) == Color.FromArgb(0, 0, 0))
-						{
-							if ((i - 1 > 0 && i + 1 < image.Width && j - 1 > 0 && j + 1 < image.Height) &&
-								!(image.GetPixel(i, j + 1) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i, j - 1) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i + 1, j) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i - 1, j) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i + 1, j + 1) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i + 1, j - 1) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i - 1, j + 1) == Color.FromArgb(0, 0, 0) &&
-								image.GetPixel(i - 1, j - 1) == Color.FromArgb(0, 0, 0)))
-								list.Add(new Point(i, j));
-						}
-					}
-
-				centroid = ImageProcessing.Centroid(list);
-			}
-			catch
-			{}
+			centroid = GetCentroid(image);
 
 			var cx = centroid.X >= 0 ? centroid.X : 0;
 			var cy = centroid.Y >= 0 ? centroid.Y : 0;
@@ -212,6 +186,37 @@ namespace DescriptorCreator
 			image.SetPixel(cx+1, cy+1, Color.Black);
 
 			this.LeafPicture.Image = (Image)image.Clone();
+		}
+
+		private Point GetCentroid(Bitmap threshold)
+		{
+			var centroid = new Point();
+			try
+			{
+				var list = new List<Point>();
+				for (var i = 0; i < threshold.Width; i++)
+					for (var j = 0; j < threshold.Height; j++)
+					{
+						if (threshold.GetPixel(i, j) == Color.FromArgb(0, 0, 0))
+						{
+							if ((i - 1 > 0 && i + 1 < threshold.Width && j - 1 > 0 && j + 1 < threshold.Height) &&
+							    !(threshold.GetPixel(i, j + 1) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i, j - 1) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i + 1, j) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i - 1, j) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i + 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i + 1, j - 1) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i - 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+							      threshold.GetPixel(i - 1, j - 1) == Color.FromArgb(0, 0, 0)))
+								list.Add(new Point(i, j));
+						}
+					}
+
+				centroid = ImageProcessing.Centroid(list);
+			}
+			catch
+			{}
+			return centroid;
 		}
 
 		private void centroidLinesButton_Click(object sender, EventArgs e)
@@ -260,6 +265,18 @@ namespace DescriptorCreator
 			}
 
 			this.LeafPicture.Image = image;
+		}
+
+		private void drawDescriptorHistorgramToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var image = (Bitmap) this.LeafPicture.Image.Clone();
+
+			var time = DateTime.Now;
+			var histogram = ImageProcessing.GetDescriptor(image);
+			MessageBox.Show((DateTime.Now - time).ToString());
+
+			this.histogramaDesenat1.DrawHistogram(histogram);
+			//this.LeafPicture.Image = image;
 		}
 	}
 }

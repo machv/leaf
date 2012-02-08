@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtensionsBitmap;
 using ExtensionsPoint;
 
 namespace DescriptorCreator
@@ -148,6 +149,37 @@ namespace DescriptorCreator
 			cy /= 6 * a;
 
 			return new Point(Convert.ToInt32(cx), Convert.ToInt32(cy));
+		}
+
+		private static Point GetCentroid(Bitmap threshold)
+		{
+			var centroid = new Point();
+			try
+			{
+				var list = new List<Point>();
+				for (var i = 0; i < threshold.Width; i++)
+					for (var j = 0; j < threshold.Height; j++)
+					{
+						if (threshold.GetPixel(i, j) == Color.FromArgb(0, 0, 0))
+						{
+							if ((i - 1 > 0 && i + 1 < threshold.Width && j - 1 > 0 && j + 1 < threshold.Height) &&
+								!(threshold.GetPixel(i, j + 1) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i, j - 1) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i + 1, j) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i - 1, j) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i + 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i + 1, j - 1) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i - 1, j + 1) == Color.FromArgb(0, 0, 0) &&
+								  threshold.GetPixel(i - 1, j - 1) == Color.FromArgb(0, 0, 0)))
+								list.Add(new Point(i, j));
+						}
+					}
+
+				centroid = ImageProcessing.Centroid(list);
+			}
+			catch
+			{ }
+			return centroid;
 		}
 
 		private static Point IntersectionPoint(Bitmap image, Point point, Point centroidPoint, bool closest)
@@ -595,6 +627,8 @@ namespace DescriptorCreator
 
 						var p = IntersectionPoint(image, new Point(x + centroid.X, 0), centroid, false);
 						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(x + centroid.X, 0));
 					}
 					else
 					{
@@ -604,6 +638,8 @@ namespace DescriptorCreator
 
 						var p = IntersectionPoint(image, new Point(image.Width - 1, y), centroid, false);
 						refPoints.Add(p);
+
+						g.DrawLine(new Pen(Color.White), centroid, new Point(image.Width - 1, y));
 					}
 				}
 
@@ -910,6 +946,111 @@ namespace DescriptorCreator
 			}
 
 			return refPoints;
+		}
+
+		public static double[] GetDescriptor(IList<Point> referencialPoints, Point centroid)
+		{
+			var normalizationDistance = Distance(referencialPoints.Last(), centroid);
+
+			var descriptor = new double[160];
+
+			for (var i =0; i < referencialPoints.Count; i++)
+			{
+				descriptor[i] = normalizationDistance != 0
+				                	? Distance(referencialPoints[i], centroid)/normalizationDistance
+				                	: Distance(referencialPoints[i], centroid);
+			}
+
+			return descriptor;
+		}
+
+		public static double[] GetDescriptor(Bitmap image)
+		{
+			var contourPoints = ContourPoints(image, 0);
+
+			var tmp = (Bitmap) image.Clone();
+
+			var t1 = Task.Factory.StartNew(() => GetCentroid(tmp));
+			var t2 = Task.Factory.StartNew(() => DrawContour(image, contourPoints));
+
+			var centroid = t1.Result;
+			image = t2.Result;
+
+			return GetDescriptor(GetReferncialPoints(image, centroid), centroid);
+		}
+
+		private static Bitmap DrawContour(Bitmap threshold, IEnumerable<Point> contourPoints)
+		{
+			for (var i = 0; i < threshold.Width; i++)
+				for (var j = 0; j < threshold.Height; j++)
+					threshold.SetPixel(i, j, Color.White);
+
+			foreach (var contourPoint in contourPoints)
+			{
+				try
+				{
+					threshold.SetPixel(contourPoint.X, contourPoint.Y, Color.Red);
+				}
+				catch
+				{ }
+
+			}
+
+			return threshold;
+		}
+
+		private static double Distance(Point refPoint, Point centroid)
+		{
+			return Math.Sqrt(Math.Abs(refPoint.X - centroid.X) ^ 2 + Math.Abs(refPoint.Y - centroid.Y) ^ 2);
+		}
+
+		private static IList<Point> ContourPoints(Bitmap image, int thresholdMove)
+		{
+			var tmpImage = image.SetGrayscale();
+
+			var key = ImageProcessing.Huang(tmpImage.Histogram()) - thresholdMove;
+
+			if (key > 255) key = 255;
+			if (key < 0) key = 0;
+
+			bool wasWhite = false;
+
+			var contourPoints = new List<Point>();
+
+			for (var j = 0; j < image.Height; j++)
+				for (var i = 0; i < image.Width; i++)
+				{
+					if (image.GetPixel(i, j).R > key)
+					{
+						if (!wasWhite && i > 0)
+							contourPoints.Add(new Point(i - 1, j));
+
+						image.SetPixel(i, j, Color.White);
+						wasWhite = true;
+					}
+					else
+					{
+						if (wasWhite)
+						{
+							contourPoints.Add(new Point(i, j));
+							image.SetPixel(i, j, Color.Black);
+						}
+						else
+						{
+							image.SetPixel(i, j, Color.Black);
+
+							if (j > 0 && image.GetPixel(i, j - 1) == Color.FromArgb(255, 255, 255))
+								contourPoints.Add(new Point(i, j));
+
+							if (j < image.Height - 1 && image.GetPixel(i, j + 1).R > key)
+								contourPoints.Add(new Point(i, j));
+						}
+						wasWhite = false;
+
+					}
+				}
+
+			return contourPoints;
 		}
 	}
 }

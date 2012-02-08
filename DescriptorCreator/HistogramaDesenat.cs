@@ -157,6 +157,24 @@ namespace Histograma
 			this.Refresh();
 		}
 
+		public void DrawHistogram(double[] Values)
+		{
+			myValues = new long[Values.Length];
+			//Values.CopyTo(myValues, 0);
+
+			for (var i = 0; i < myValues.Length; i++)
+			{
+				myValues[i] = System.Convert.ToInt64(Values[i]*100);
+			}
+
+			myIsDrawing = true;
+			myMaxValue = getMaxim(myValues);
+
+			ComputeXYUnitValues();
+
+			this.Refresh();
+		}
+
 		/// <summary>
 		/// We get the highest value from the array
 		/// </summary>
