@@ -29,7 +29,8 @@ namespace LeafService
 
 
             //na tenhle img zavolat rozpozavani
-            
+
+            return null;
         }
 
         public bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo)
