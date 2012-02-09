@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ExtensionsBitmap;
 using ExtensionsPoint;
@@ -1001,10 +1000,10 @@ namespace DescriptorCreator
 
 		private static double Distance(Point refPoint, Point centroid)
 		{
-			return Math.Sqrt(Math.Abs(refPoint.X - centroid.X) ^ 2 + Math.Abs(refPoint.Y - centroid.Y) ^ 2);
+			return Math.Sqrt((Math.Abs(refPoint.X - centroid.X) ^ 2) + (Math.Abs(refPoint.Y - centroid.Y) ^ 2));
 		}
 
-		private static IList<Point> ContourPoints(Bitmap image, int thresholdMove)
+		private static IEnumerable<Point> ContourPoints(Bitmap image, int thresholdMove)
 		{
 			var tmpImage = image.SetGrayscale();
 
