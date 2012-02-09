@@ -35,15 +35,13 @@ namespace LeafService
         	var descriptor = ImageProcessing.GetDescriptor(img);
 
             // odpovedi
-<<<<<<< .mine
-            //RecognizedLeaf[] leafs = new RecognizedLeaf[1];
-            //leafs[1] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
-=======
+
             RecognizedLeaf[] leafs = new RecognizedLeaf[1];
             leafs[0] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
->>>>>>> .r44
 
-            return this.Evaluate(descriptor);
+        	return leafs;
+
+        	//return this.Evaluate(descriptor);
         }
 
 		private RecognizedLeaf[] Evaluate(double[] desc, double threshold = 2d)
