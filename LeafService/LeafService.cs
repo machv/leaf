@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using DescriptorCreator;
 
 namespace LeafService
 {
@@ -29,14 +32,71 @@ namespace LeafService
 
             //TODO: na tenhle img zavolat rozpozavani
 
+        	var descriptor = ImageProcessing.GetDescriptor(img);
+
             // odpovedi
+<<<<<<< .mine
+            //RecognizedLeaf[] leafs = new RecognizedLeaf[1];
+            //leafs[1] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
+=======
             RecognizedLeaf[] leafs = new RecognizedLeaf[1];
             leafs[0] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
+>>>>>>> .r44
 
-            return leafs;
+            return this.Evaluate(descriptor);
         }
 
-        public bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo)
+		private RecognizedLeaf[] Evaluate(double[] desc, double threshold = 2d)
+		{
+			System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+			var conn =
+				new SqlConnection(
+					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
+
+			var cmd = new SqlCommand()
+			          	{
+			          		Connection = conn
+			          	};
+
+			var sb = new StringBuilder(desc.Length);
+			sb.Append(desc[0]);
+
+			for (var i = 1; i < desc.Length; i++)
+				sb.Append(':').Append(desc[i]);
+
+			var descParam = new SqlParameter()
+			                	{
+			                		ParameterName = "descriptor",
+			                		Value = sb.ToString()
+			                	};
+
+			var theshold = new SqlParameter()
+			{
+				ParameterName = "threshold",
+				Value = threshold
+			};
+
+			cmd.Parameters.Add(descParam);
+			cmd.Parameters.Add(theshold);
+
+			cmd.CommandText =
+				"SELECT T1.RodoveCesky + ' ' + T1.DruhoveCesky AS Cesky, T1.RodoveLatinsky + ' ' + T1.DruhoveLatinsky AS Latinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID WHERE dbo.IsClose(CAST(@descriptor AS dbo.Descriptor), T2.Descriptor, @Threshold) = 1;";
+
+			conn.Open();
+			var reader = cmd.ExecuteReader();
+			conn.Close();
+
+			var collection = new List<RecognizedLeaf>();
+			while (reader.Read())
+			{
+				collection.Add(new RecognizedLeaf((string)reader[0], (string)reader[1], (double)reader[2]));
+			}
+
+			return collection.ToArray();
+		}
+
+    	public bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo)
         {
             throw new NotImplementedException();
         }

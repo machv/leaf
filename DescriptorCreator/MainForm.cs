@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -267,6 +269,8 @@ namespace DescriptorCreator
 			this.LeafPicture.Image = image;
 		}
 
+		private double[] descriptor;
+
 		private void drawDescriptorHistorgramToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var image = (Bitmap) this.LeafPicture.Image.Clone();
@@ -277,6 +281,157 @@ namespace DescriptorCreator
 
 			this.histogramaDesenat1.DrawHistogram(histogram);
 			//this.LeafPicture.Image = image;
+
+			this.descriptor = histogram;
+		}
+
+		private void StoreTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
+		{
+			var conn =
+				new SqlConnection(
+					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
+
+			var cmd = new SqlCommand()
+			{
+				Connection = conn
+			};
+
+			var czR = new SqlParameter()
+			{
+				ParameterName = "czR",
+				Value = czDruhove ?? String.Empty
+			};
+
+			var czD = new SqlParameter()
+			{
+				ParameterName = "czD",
+				Value = czDruhove ?? String.Empty
+			};
+
+			var ltR = new SqlParameter()
+			{
+				ParameterName = "ltR",
+				Value = ltRodove ?? String.Empty
+			};
+
+			var ltD = new SqlParameter()
+			{
+				ParameterName = "ltD",
+				Value = ltDruhove ?? String.Empty
+			};
+
+			cmd.Parameters.Add(czD);
+			cmd.Parameters.Add(czR);
+			cmd.Parameters.Add(ltR);
+			cmd.Parameters.Add(ltD);
+
+			cmd.CommandText =
+				"INSERT INTO TREE (RodoveCesky, DruhoveCesky, RodoveLatinsky, DruhoveLatinsky, Verified) VALUES (@czR, @czD, @ltR, @ltD, 1)";
+
+			conn.Open();
+			cmd.ExecuteNonQuery();
+			conn.Close();
+		}
+
+		private void StoreDescriptor(int treeID, double[] desc)
+		{
+			System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+			var conn =
+				new SqlConnection(
+					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
+
+			var cmd = new SqlCommand()
+			{
+				Connection = conn
+			};
+
+			var sb = new StringBuilder(desc.Length);
+			sb.Append(desc[0]);
+
+			for (var i = 1; i < desc.Length; i++)
+				sb.Append(':').Append(desc[i]);
+
+			var descParam = new SqlParameter()
+			{
+				ParameterName = "descriptor",
+				Value = sb.ToString()
+			};
+
+			var tree = new SqlParameter()
+			{
+				ParameterName = "id",
+				Value = treeID
+			};
+
+			cmd.Parameters.Add(descParam);
+			cmd.Parameters.Add(tree);
+
+			cmd.CommandText =
+				"INSERT INTO DESCRIPTOR (TreeID, Descriptor) VALUES (@id, CAST(@descriptor AS dbo.Descriptor));";
+
+			conn.Open();
+			cmd.ExecuteNonQuery();
+			conn.Close();
+		}
+
+		private void storeDescriptorToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			//TODO: form to add tree ID
+
+			StoreDescriptor(1,this.descriptor);
+		}
+
+		private void distanceToALLToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+			var desc = this.descriptor;
+
+			var conn =
+				new SqlConnection(
+					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
+
+			var cmd = new SqlCommand()
+			{
+				Connection = conn
+			};
+
+			var sb = new StringBuilder(desc.Length);
+			sb.Append(desc[0]);
+
+			for (var i = 1; i < desc.Length; i++)
+				sb.Append(':').Append(desc[i]);
+
+			var descParam = new SqlParameter()
+			{
+				ParameterName = "descriptor",
+				Value = sb.ToString()
+			};
+
+			var theshold = new SqlParameter()
+			{
+				ParameterName = "threshold",
+				Value = threshold
+			};
+
+			cmd.Parameters.Add(descParam);
+			//cmd.Parameters.Add(theshold);
+
+			cmd.CommandText =
+				//"SELECT T1.RodoveCesky + ' ' + T1.DruhoveCesky AS Cesky, T1.RodoveLatinsky + ' ' + T1.DruhoveLatinsky AS Latinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID WHERE dbo.IsClose(CAST(@descriptor AS dbo.Descriptor), T2.Descriptor, @Threshold) = 1;";
+				"SELECT T1.RodoveCesky + ' ' + T1.DruhoveCesky AS Cesky, T1.RodoveLatinsky + ' ' + T1.DruhoveLatinsky AS Latinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID";
+			conn.Open();
+			var reader = cmd.ExecuteReader();
+			
+			var collection = new StringBuilder();
+			while (reader.Read())
+			{
+				collection.Append((string)reader[0] + " " + (double)reader[2]).Append('\n');
+			}
+
+			conn.Close();
+			MessageBox.Show(collection.ToString());
 		}
 	}
 }
