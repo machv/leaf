@@ -27,10 +27,13 @@ namespace LeafService
             Bitmap img = (Bitmap)Image.FromStream(ms);
             ms.Close();
 
+            //TODO: na tenhle img zavolat rozpozavani
 
-            //na tenhle img zavolat rozpozavani
+            // odpovedi
+            RecognizedLeaf[] leafs = new RecognizedLeaf[1];
+            leafs[1] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
 
-            return null;
+            return leafs;
         }
 
         public bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo)

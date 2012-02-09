@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LeafService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LeafService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfRecognizedLeaf">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RecognizedLeaf" nillable="true" type="tns:RecognizedLeaf" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRecognizedLeaf" nillable="true" type="tns:ArrayOfRecognizedLeaf" />
+  <xs:complexType name="RecognizedLeaf">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Confidency" type="xs:double" />
+      <xs:element minOccurs="0" name="LatinName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RecognizedLeaf" nillable="true" type="tns:RecognizedLeaf" />
+  <xs:complexType name="ArrayOfDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Descriptor" nillable="true" type="tns:Descriptor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDescriptor" nillable="true" type="tns:ArrayOfDescriptor" />
+  <xs:complexType name="Descriptor">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Descriptor" nillable="true" type="tns:Descriptor" />
+  <xs:complexType name="SenderInfo">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="SenderInfo" nillable="true" type="tns:SenderInfo" />
+</xs:schema>
