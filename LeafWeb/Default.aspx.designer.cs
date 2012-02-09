@@ -58,6 +58,24 @@ namespace LeafWeb {
         protected global::System.Web.UI.WebControls.PlaceHolder ResponsePlaceHolder;
         
         /// <summary>
+        /// LabelResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelResults;
+        
+        /// <summary>
+        /// ResultsRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater ResultsRepeater;
+        
+        /// <summary>
         /// ImageUploaded control.
         /// </summary>
         /// <remarks>

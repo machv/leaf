@@ -23,15 +23,15 @@ namespace LeafService
 
             byte[] imageBytes = Convert.FromBase64String(picture);
 
-            MemoryStream ms = new MemoryStream(imageBytes);
-            Bitmap img = (Bitmap)Image.FromStream(ms);
-            ms.Close();
+       //     MemoryStream ms = new MemoryStream(imageBytes);
+       //     Bitmap img = (Bitmap)Image.FromStream(ms);
+       //     ms.Close();
 
             //TODO: na tenhle img zavolat rozpozavani
 
             // odpovedi
             RecognizedLeaf[] leafs = new RecognizedLeaf[1];
-            leafs[1] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
+            leafs[0] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
 
             return leafs;
         }

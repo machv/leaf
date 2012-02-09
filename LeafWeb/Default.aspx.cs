@@ -47,6 +47,7 @@ namespace LeafWeb
                 return;
             }
 
+            HideFlashMessage();
 
             Stream stream = LeafPhotoUpload.FileContent;
             StreamReader reader = new StreamReader(stream);
@@ -70,9 +71,9 @@ namespace LeafWeb
             RecognizedLeaf[] leafs = client.Recognize(base64, 5);
 
 
-            ShowFlashMessage("Leafs found: " + leafs.Length);
+            //ShowFlashMessage("Leafs found: " + leafs.Length);
 
-            //HideFlashMessage();
+            
 
             DataTable dtTemp = new DataTable("TempImage");//Creating temprory data table which will store image information
             dtTemp.Columns.Add("Image", System.Type.GetType("System.Byte[]"));//Byte Image column
@@ -83,6 +84,15 @@ namespace LeafWeb
             Session["dt"] = dtTemp;//storing temprory table in seesion.
 
             ImageUploaded.ImageUrl = "Image.aspx"; //Query string id we have passed
+
+            //
+            ResponsePlaceHolder.Visible = true;
+
+            string leaf = leafs.Length > 1 ? "leafs" : "leaf";
+            LabelResults.Text = leafs.Length + " " + leaf + " found.";
+
+            ResultsRepeater.DataSource = leafs;
+            ResultsRepeater.DataBind();
         }
     }
 }
