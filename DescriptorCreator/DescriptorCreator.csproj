@@ -45,20 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvexPath.cs" />
-    <Compile Include="EdgeDetection.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="HistogramaDesenat.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Hsv.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageProcessing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HistogramaDesenat.resx">
@@ -87,6 +82,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LeafLogic\LeafLogic.csproj">
+      <Project>{7C63D916-EA31-4F64-AA89-D6ED4027F008}</Project>
+      <Name>LeafLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

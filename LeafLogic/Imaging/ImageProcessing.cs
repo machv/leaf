@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using ExtensionsBitmap;
-using ExtensionsPoint;
+using Leaf.ExtensionsBitmap;
+using Leaf.ExtensionsPoint;
 
-namespace DescriptorCreator
+namespace Leaf.Logic
 {
 	public class ImageProcessing
 	{

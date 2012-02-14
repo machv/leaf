@@ -10,11 +10,11 @@ namespace Leaf.Service
 	[ServiceContract]
 	public interface ILeafService
 	{
-		[OperationContract]
-		string SayHello();
-
         [OperationContract]
         RecognizedLeaf[] Recognize(string picture, int noAnswers);
+
+        [OperationContract]
+        Tree[] GetTrees();
 
         [OperationContract]
         bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo);

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Descriptor.cs" />
     <Compile Include="ILeafService.cs" />
+    <Compile Include="Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LeafService.cs" />
     <Compile Include="RecognizedLeaf.cs" />
@@ -62,9 +63,9 @@
     <Content Include="LeafService.svc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DescriptorCreator\DescriptorCreator.csproj">
-      <Project>{8FAF1C79-88FA-42ED-9F5C-872DA4D36D37}</Project>
-      <Name>DescriptorCreator</Name>
+    <ProjectReference Include="..\LeafLogic\LeafLogic.csproj">
+      <Project>{7C63D916-EA31-4F64-AA89-D6ED4027F008}</Project>
+      <Name>LeafLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

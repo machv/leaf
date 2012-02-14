@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace DescriptorCreator
+namespace Leaf.Logic
 {
-    class EdgeDetection
+    public class EdgeDetection
     {
-
-
         Bitmap b, b1;
 
         public Image Detect(Image image)

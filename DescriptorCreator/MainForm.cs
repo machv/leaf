@@ -8,9 +8,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ExtesionsColor;
-using ExtensionsBitmap;
-using ExtensionsPoint;
+using Leaf.ExtesionsColor;
+using Leaf.ExtensionsBitmap;
+using Leaf.ExtensionsPoint;
+using Leaf.Logic;
 
 namespace DescriptorCreator
 {

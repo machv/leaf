@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
-namespace DescriptorCreator
+namespace Leaf.Logic
 {
 	public class ConvexPath
 	{
@@ -127,7 +127,11 @@ namespace DescriptorCreator
 				}
 
 			}
-			catch { MessageBox.Show("Need at least 3 points!"); }
+			catch 
+            {
+                throw new InvalidOperationException("Need at least 3 points!");
+                //MessageBox.Show("Need at least 3 points!"); 
+            }
 			finally { this.zoznam = zaloha.ToList(); }
 
 			return obal;

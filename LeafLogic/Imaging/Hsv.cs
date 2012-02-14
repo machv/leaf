@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace Leaf.Base
+namespace Leaf.Logic
 {
     public struct Hsv
     {

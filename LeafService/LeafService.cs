@@ -8,15 +8,15 @@ using System.ServiceModel;
 using System.Text;
 using System.Drawing;
 using System.IO;
-using DescriptorCreator;
+using Leaf.Logic;
 
 namespace Leaf.Service
 {
     public class LeafService : ILeafService
     {
-        public string SayHello()
+        public Tree[] GetTrees()
         {
-            return "Hello world!";
+            return null;
         }
 
         public RecognizedLeaf[] Recognize(string picture, int noAnswers = 3)

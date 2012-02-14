@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="LeafWeb.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Leaf.Web.Global" Language="C#" %>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using Leaf.Base;
+using Leaf.Logic;
+//using System.Windows.Forms;
 
-namespace ExtesionsColor
+namespace Leaf.ExtesionsColor
 {
     public static class ExtensionsColor
     {
@@ -20,10 +20,9 @@ namespace ExtesionsColor
             return Hsv.FromColor(color);
         }
     }
-
 }
 
-namespace ExtensionsBitmap
+namespace Leaf.ExtensionsBitmap
 {
     public static class ExtensionsBitmap
     {
@@ -162,7 +161,7 @@ namespace ExtensionsBitmap
     }
 }
 
-namespace ExtensionsPoint
+namespace Leaf.ExtensionsPoint
 {
 	public static class ExtensionsPoint
 	{
