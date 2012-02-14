@@ -8,7 +8,7 @@ using System.Data;
 using System.IO;
 using System.Drawing;
 
-namespace LeafWeb
+namespace Leaf.Web
 {
     public partial class Image : System.Web.UI.Page
     {

@@ -5,7 +5,7 @@ using System.Web;
 using System.IO;
 using System.Drawing;
 
-namespace LeafWeb
+namespace Leaf.Web
 {
     public class ImageUtils
     {

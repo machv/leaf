@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 
-namespace LeafWeb
+namespace Leaf.Web
 {
     public class Global : System.Web.HttpApplication
     {

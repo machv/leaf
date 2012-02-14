@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace LeafService
+namespace Leaf.Service
 {
 	[ServiceContract]
 	public interface ILeafService

@@ -10,7 +10,7 @@ using System.Drawing;
 using System.IO;
 using DescriptorCreator;
 
-namespace LeafService
+namespace Leaf.Service
 {
     public class LeafService : ILeafService
     {
@@ -26,9 +26,9 @@ namespace LeafService
 
             byte[] imageBytes = Convert.FromBase64String(picture);
 
-       //     MemoryStream ms = new MemoryStream(imageBytes);
-       //     Bitmap img = (Bitmap)Image.FromStream(ms);
-       //     ms.Close();
+            MemoryStream ms = new MemoryStream(imageBytes);
+            Bitmap img = (Bitmap)Image.FromStream(ms);
+            ms.Close();
 
             //TODO: na tenhle img zavolat rozpozavani
 

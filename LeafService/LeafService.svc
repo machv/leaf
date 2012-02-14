@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Service="LeafService.LeafService" %>
+﻿<%@ ServiceHost Service="Leaf.Service.LeafService" %>

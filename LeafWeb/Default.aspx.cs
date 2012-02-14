@@ -9,7 +9,7 @@ using System.Data;
 using System.Drawing;
 using LeafWeb.LeafService;
 
-namespace LeafWeb
+namespace Leaf.Web
 {
     public partial class _Default : System.Web.UI.Page
     {

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LeafWeb
+namespace Leaf.Web
 {
 
 

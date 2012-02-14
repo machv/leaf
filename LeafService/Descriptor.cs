@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LeafService
+namespace Leaf.Service
 {
     public class Descriptor
     {
