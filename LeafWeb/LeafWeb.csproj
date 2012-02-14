@@ -65,7 +65,23 @@
     <Content Include="Image.aspx" />
     <None Include="Service References\LeafService\configuration91.svcinfo" />
     <None Include="Service References\LeafService\configuration.svcinfo" />
+    <None Include="Service References\LeafService\LeafService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LeafService\LeafService1.wsdl" />
+    <None Include="Service References\LeafService\LeafService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LeafService\LeafService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LeafService\LeafService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LeafService\LeafWeb.LeafService.RecognizedLeaf.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LeafService\LeafWeb.LeafService.Tree.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LeafService\Reference.svcmap">
@@ -144,18 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\LeafService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\LeafService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\LeafService.wsdl" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -18,6 +18,9 @@ namespace Leaf.Service
         Tree[] GetTrees();
 
         [OperationContract]
+        int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove);
+
+        [OperationContract]
         bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo);
 	}
 }

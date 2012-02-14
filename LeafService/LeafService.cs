@@ -17,7 +17,15 @@ namespace Leaf.Service
         public Tree[] GetTrees()
         {
             Trees trees = new Trees();
-            return trees.GetTrees();
+            Tree[] n = trees.GetTrees();
+ 
+            return n;
+        }
+
+        public int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
+        {
+            Trees trees = new Trees();
+            return trees.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
         }
 
         public RecognizedLeaf[] Recognize(string picture, int noAnswers = 3)

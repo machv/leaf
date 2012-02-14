@@ -15,7 +15,7 @@ namespace LeafWeb.LeafService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RecognizedLeaf", Namespace="http://schemas.datacontract.org/2004/07/LeafService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RecognizedLeaf", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
     [System.SerializableAttribute()]
     public partial class RecognizedLeaf : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -92,7 +92,132 @@ namespace LeafWeb.LeafService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Descriptor", Namespace="http://schemas.datacontract.org/2004/07/LeafService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Tree", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Logic")]
+    [System.SerializableAttribute()]
+    public partial class Tree : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DruhoveCzechField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DruhoveLatinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RodoveCzechField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RodoveLatinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool VerifiedField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DruhoveCzech {
+            get {
+                return this.DruhoveCzechField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DruhoveCzechField, value) != true)) {
+                    this.DruhoveCzechField = value;
+                    this.RaisePropertyChanged("DruhoveCzech");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DruhoveLatin {
+            get {
+                return this.DruhoveLatinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DruhoveLatinField, value) != true)) {
+                    this.DruhoveLatinField = value;
+                    this.RaisePropertyChanged("DruhoveLatin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RodoveCzech {
+            get {
+                return this.RodoveCzechField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RodoveCzechField, value) != true)) {
+                    this.RodoveCzechField = value;
+                    this.RaisePropertyChanged("RodoveCzech");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RodoveLatin {
+            get {
+                return this.RodoveLatinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RodoveLatinField, value) != true)) {
+                    this.RodoveLatinField = value;
+                    this.RaisePropertyChanged("RodoveLatin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Verified {
+            get {
+                return this.VerifiedField;
+            }
+            set {
+                if ((this.VerifiedField.Equals(value) != true)) {
+                    this.VerifiedField = value;
+                    this.RaisePropertyChanged("Verified");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Descriptor", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
     [System.SerializableAttribute()]
     public partial class Descriptor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -121,7 +246,7 @@ namespace LeafWeb.LeafService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SenderInfo", Namespace="http://schemas.datacontract.org/2004/07/LeafService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SenderInfo", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
     [System.SerializableAttribute()]
     public partial class SenderInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -152,11 +277,14 @@ namespace LeafWeb.LeafService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LeafService.ILeafService")]
     public interface ILeafService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/SayHello", ReplyAction="http://tempuri.org/ILeafService/SayHelloResponse")]
-        string SayHello();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/Recognize", ReplyAction="http://tempuri.org/ILeafService/RecognizeResponse")]
         LeafWeb.LeafService.RecognizedLeaf[] Recognize(string picture, int noAnswers);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/GetTrees", ReplyAction="http://tempuri.org/ILeafService/GetTreesResponse")]
+        LeafWeb.LeafService.Tree[] GetTrees();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/AddTree", ReplyAction="http://tempuri.org/ILeafService/AddTreeResponse")]
+        int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/Learn", ReplyAction="http://tempuri.org/ILeafService/LearnResponse")]
         bool Learn(LeafWeb.LeafService.Descriptor[] descriptors, string picture, string treeName, LeafWeb.LeafService.SenderInfo senderInfo);
@@ -189,12 +317,16 @@ namespace LeafWeb.LeafService {
                 base(binding, remoteAddress) {
         }
         
-        public string SayHello() {
-            return base.Channel.SayHello();
-        }
-        
         public LeafWeb.LeafService.RecognizedLeaf[] Recognize(string picture, int noAnswers) {
             return base.Channel.Recognize(picture, noAnswers);
+        }
+        
+        public LeafWeb.LeafService.Tree[] GetTrees() {
+            return base.Channel.GetTrees();
+        }
+        
+        public int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove) {
+            return base.Channel.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
         }
         
         public bool Learn(LeafWeb.LeafService.Descriptor[] descriptors, string picture, string treeName, LeafWeb.LeafService.SenderInfo senderInfo) {

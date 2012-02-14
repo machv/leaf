@@ -288,7 +288,11 @@ namespace DescriptorCreator
 
 		private void StoreTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
 		{
-			var conn =
+            Trees t = new Trees();
+            t.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
+
+            /*
+            var conn =
 				new SqlConnection(
 					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
 
@@ -332,6 +336,7 @@ namespace DescriptorCreator
 			conn.Open();
 			cmd.ExecuteNonQuery();
 			conn.Close();
+             */
 		}
 
 		private void StoreDescriptor(int treeID, double[] desc)

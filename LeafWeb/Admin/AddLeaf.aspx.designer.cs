@@ -13,6 +13,24 @@ namespace Leaf.Web.Admin {
     public partial class AddLeaf {
         
         /// <summary>
+        /// flashMessageBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder flashMessageBox;
+        
+        /// <summary>
+        /// flashMessageText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label flashMessageText;
+        
+        /// <summary>
         /// fuLeafFile control.
         /// </summary>
         /// <remarks>
@@ -22,13 +40,49 @@ namespace Leaf.Web.Admin {
         protected global::System.Web.UI.WebControls.FileUpload fuLeafFile;
         
         /// <summary>
-        /// txtLeafName control.
+        /// DropDownListTrees control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeafName;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListTrees;
+        
+        /// <summary>
+        /// txtTreeNameCzechRodove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTreeNameCzechRodove;
+        
+        /// <summary>
+        /// txtTreeNameCzechDruhove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTreeNameCzechDruhove;
+        
+        /// <summary>
+        /// txtTreeNameLatinRodove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTreeNameLatinRodove;
+        
+        /// <summary>
+        /// txtTreeNameLatinDruhove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTreeNameLatinDruhove;
         
         /// <summary>
         /// ButtonSaveLeaf control.

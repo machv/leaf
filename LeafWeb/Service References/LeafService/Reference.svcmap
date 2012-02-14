@@ -18,13 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8084/LeafService/?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://service.leaf.sunstorm.info/LeafService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="20de9f7a-e8ab-4998-8ca4-55f7ce9f222c" SourceId="1" SourceUrl="http://localhost:8084/LeafService/?xsd=xsd1" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="a8c4c757-31c2-4498-98bf-22473f9ee3f4" SourceId="1" SourceUrl="http://localhost:8084/LeafService/?xsd=xsd0" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="f39a3fc0-e27f-45fb-88ac-69a98399854b" SourceId="1" SourceUrl="http://localhost:8084/LeafService/?xsd=xsd2" />
-    <MetadataFile FileName="LeafService.wsdl" MetadataType="Wsdl" ID="86631b4e-7231-4d67-9681-2e8926a583e9" SourceId="1" SourceUrl="http://localhost:8084/LeafService/?wsdl" />
+    <MetadataFile FileName="LeafService1.xsd" MetadataType="Schema" ID="c827364d-ee74-4f60-b4cc-c6be5b4e1350" SourceId="1" SourceUrl="http://service.leaf.sunstorm.info/LeafService.svc?xsd=xsd0" />
+    <MetadataFile FileName="LeafService2.xsd" MetadataType="Schema" ID="ee6f8902-32d7-42cf-87b7-c5d359a9f8a0" SourceId="1" SourceUrl="http://service.leaf.sunstorm.info/LeafService.svc?xsd=xsd1" />
+    <MetadataFile FileName="LeafService.xsd" MetadataType="Schema" ID="e3bbc20f-3f43-409e-9a60-8002a3eadea6" SourceId="1" SourceUrl="http://service.leaf.sunstorm.info/LeafService.svc?xsd=xsd2" />
+    <MetadataFile FileName="LeafService3.xsd" MetadataType="Schema" ID="38f960fa-3334-402f-88c2-b1bcf978930e" SourceId="1" SourceUrl="http://service.leaf.sunstorm.info/LeafService.svc?xsd=xsd3" />
+    <MetadataFile FileName="LeafService1.wsdl" MetadataType="Wsdl" ID="9c0e29c2-e7db-47a3-8241-214369148548" SourceId="1" SourceUrl="http://service.leaf.sunstorm.info/LeafService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

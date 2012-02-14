@@ -12,6 +12,11 @@ namespace Leaf.Logic
         {
             get
             {
+                if (ConfigurationManager.ConnectionStrings["Leaf"] == null)
+                {
+                    throw new MissingFieldException("Missing definition of Leaf connection string.");
+                }
+
                 return ConfigurationManager.ConnectionStrings["Leaf"].ConnectionString;
             }
         }
