@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace Leaf.Logic
 {
-    public class Trees
+    public class Engine
     {
-        public Tree[] GetTrees()
+        public static Tree[] GetTrees()
         {
             Tree[] trees; // = new Tree[3];
 
@@ -33,13 +34,15 @@ namespace Leaf.Logic
                     trees[i].DruhoveCzech = reader["DruhoveCesky"] != DBNull.Value ? (string)reader["DruhoveCesky"] : "";
                     trees[i].RodoveLatin = reader["RodoveLatinsky"] != DBNull.Value ? (string)reader["RodoveLatinsky"] : "";
                     trees[i].DruhoveLatin = reader["DruhoveLatinsky"] != DBNull.Value ? (string)reader["DruhoveLatinsky"] : "";
+                    
+                    i++;
                 }
             }
 
             return trees;
         }
 
-        public int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
+        public static int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
         {
             using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
             {
@@ -51,7 +54,7 @@ namespace Leaf.Logic
                 var czR = new SqlParameter()
                 {
                     ParameterName = "czR",
-                    Value = czDruhove ?? String.Empty
+                    Value = czRodove ?? String.Empty
                 };
 
                 var czD = new SqlParameter()
@@ -80,9 +83,52 @@ namespace Leaf.Logic
                 cmd.CommandText = "INSERT INTO TREE (RodoveCesky, DruhoveCesky, RodoveLatinsky, DruhoveLatinsky, Verified) VALUES (@czR, @czD, @ltR, @ltD, 1); select scope_identity()";
 
                 conn.Open();
-                int id = (int)cmd.ExecuteScalar();
+                int id = (int)(decimal)cmd.ExecuteScalar();
                 conn.Close();
-                
+
+                return id;
+            }
+        }
+
+        public static int AddDescriptor(int treeID, double[] descriptor)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+            using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
+            {
+                var cmd = new SqlCommand()
+                {
+                    Connection = conn
+                };
+
+                var sb = new StringBuilder(descriptor.Length);
+                sb.Append(descriptor[0]);
+
+                for (var i = 1; i < descriptor.Length; i++)
+                    sb.Append(':').Append(descriptor[i]);
+
+                var descParam = new SqlParameter()
+                {
+                    ParameterName = "descriptor",
+                    Value = sb.ToString()
+                };
+
+                var tree = new SqlParameter()
+                {
+                    ParameterName = "id",
+                    Value = treeID
+                };
+
+                cmd.Parameters.Add(descParam);
+                cmd.Parameters.Add(tree);
+
+                cmd.CommandText =
+                    "INSERT INTO DESCRIPTOR (TreeID, Descriptor) VALUES (@id, CAST(@descriptor AS dbo.Descriptor));  select scope_identity()";
+
+                conn.Open();
+                int id = (int)(decimal)cmd.ExecuteScalar();
+                conn.Close();
+
                 return id;
             }
         }

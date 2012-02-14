@@ -215,64 +215,6 @@ namespace LeafWeb.LeafService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Descriptor", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
-    [System.SerializableAttribute()]
-    public partial class Descriptor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SenderInfo", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
-    [System.SerializableAttribute()]
-    public partial class SenderInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LeafService.ILeafService")]
     public interface ILeafService {
@@ -287,7 +229,7 @@ namespace LeafWeb.LeafService {
         int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/Learn", ReplyAction="http://tempuri.org/ILeafService/LearnResponse")]
-        bool Learn(LeafWeb.LeafService.Descriptor[] descriptors, string picture, string treeName, LeafWeb.LeafService.SenderInfo senderInfo);
+        bool Learn(int treeID, string picture);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -329,8 +271,8 @@ namespace LeafWeb.LeafService {
             return base.Channel.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
         }
         
-        public bool Learn(LeafWeb.LeafService.Descriptor[] descriptors, string picture, string treeName, LeafWeb.LeafService.SenderInfo senderInfo) {
-            return base.Channel.Learn(descriptors, picture, treeName, senderInfo);
+        public bool Learn(int treeID, string picture) {
+            return base.Channel.Learn(treeID, picture);
         }
     }
 }

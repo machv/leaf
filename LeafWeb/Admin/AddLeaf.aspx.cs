@@ -28,23 +28,26 @@ namespace Leaf.Web.Admin
         {
             DropDownListTrees.Attributes.Add("onchange", "OnSelectedIndexChange(this);");
 
-            LeafServiceClient client = new LeafServiceClient();
-            Tree[] trees = client.GetTrees();
-
-            TreePair[] newTrees = new TreePair[trees.Length + 1];
-            for(int i = 0; i < trees.Length; i++)
+            if (!Page.IsPostBack)
             {
-                newTrees[i] = new TreePair();
-                newTrees[i].ID = trees[i].ID;
-                newTrees[i].Name = trees[i].RodoveCzech + " " + trees[i].DruhoveCzech; 
+                LeafServiceClient client = new LeafServiceClient();
+                Tree[] trees = client.GetTrees();
+
+                TreePair[] newTrees = new TreePair[trees.Length + 1];
+                for (int i = 0; i < trees.Length; i++)
+                {
+                    newTrees[i] = new TreePair();
+                    newTrees[i].ID = trees[i].ID;
+                    newTrees[i].Name = trees[i].RodoveCzech + " " + trees[i].DruhoveCzech;
+                }
+
+                newTrees[trees.Length] = new TreePair();
+                newTrees[trees.Length].ID = 0;
+                newTrees[trees.Length].Name = "-- New tree --";
+
+                DropDownListTrees.DataSource = newTrees;
+                DropDownListTrees.DataBind();
             }
-
-            newTrees[trees.Length] = new TreePair();
-            newTrees[trees.Length].ID = 0;
-            newTrees[trees.Length].Name = "-- New tree --";
-
-            DropDownListTrees.DataSource = newTrees;
-            DropDownListTrees.DataBind();
         }
 
         protected void ButtonSaveLeaf_Click(object sender, EventArgs e)
@@ -68,15 +71,15 @@ namespace Leaf.Web.Admin
             Stream stream = fuLeafFile.FileContent;
             StreamReader reader = new StreamReader(stream);
 
-            byte[] bytedata;//To store image file
+            byte[] data;
             HttpPostedFile postFile = fuLeafFile.PostedFile;
-            int contentLength = postFile.ContentLength;//Storing file length
-            bytedata = new byte[contentLength];//Initializing byte variable by passing image content length.
-            postFile.InputStream.Read(bytedata, 0, contentLength); //Reading byte content
+            int contentLength = postFile.ContentLength;
+            data = new byte[contentLength];
+            postFile.InputStream.Read(data, 0, contentLength);
 
-            Bitmap img = ImageUtils.BitmapFromBytes(bytedata);
+            Bitmap img = ImageUtils.BitmapFromBytes(data);
             System.Drawing.Image NewImage = ImageUtils.Resize(img, 400, 400, true);
-            byte[] data = ImageUtils.ImageToBytes(NewImage);
+            data = ImageUtils.ImageToBytes(NewImage);
 
             string base64 = Convert.ToBase64String(data);
 
@@ -89,7 +92,22 @@ namespace Leaf.Web.Admin
                 treeID = client.AddTree(txtTreeNameCzechRodove.Text, txtTreeNameCzechDruhove.Text, txtTreeNameLatinRodove.Text, txtTreeNameLatinDruhove.Text);
             }
 
-            //client.Learn();
+            bool status = client.Learn(treeID, base64);
+
+            if (status)
+            {
+                ShowFlashMessage("New leaf sucessfully added to database.");
+
+                txtTreeNameCzechRodove.Text = "";
+                txtTreeNameCzechDruhove.Text = "";
+                txtTreeNameLatinRodove.Text = "";
+                txtTreeNameLatinDruhove.Text = "";
+                DropDownListTrees.SelectedIndex = 0;
+            }
+            else
+            {
+                ShowFlashMessage("Error occured during learning proccess.");
+            }
         }
     }
 

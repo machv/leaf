@@ -47,7 +47,7 @@ namespace Leaf.ExtensionsBitmap
                 for (int j = 0; j < bmap.Height; j++)
                 {
                     c = bmap.GetPixel(i, j);
-                    byte gray = (byte)(.299 * c.R + .587 * c.G + .114 * c.B);
+                    int gray = (int)(.299 * c.R + .587 * c.G + .114 * c.B);
 
                     bmap.SetPixel(i, j, Color.FromArgb(gray, gray, gray));
                 }

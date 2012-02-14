@@ -48,6 +48,7 @@
     <div class="footer">
         
     </div>
+    <div id="cover"></div>
     </form>
 </body>
 </html>

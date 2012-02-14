@@ -21,6 +21,6 @@ namespace Leaf.Service
         int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove);
 
         [OperationContract]
-        bool Learn(Descriptor[] descriptors, string picture, string treeName, SenderInfo senderInfo);
+        bool Learn(int treeID, string picture);
 	}
 }

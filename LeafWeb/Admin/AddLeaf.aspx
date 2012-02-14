@@ -79,8 +79,22 @@
             <td>
             </td>
             <td>
-                <asp:Button ID="ButtonSaveLeaf" runat="server" Text="Save" OnClick="ButtonSaveLeaf_Click" />
+                <asp:Button ID="ButtonSaveLeaf" runat="server" Text="Save leaf" OnClientClick="ShowLoader();"
+                    OnClick="ButtonSaveLeaf_Click" />
             </td>
         </tr>
     </table>
+    <script>
+        function ShowLoader() {
+            var cvr = document.getElementById("cover");
+            var loader = document.getElementById("loading");
+            cvr.style.display = "block";
+            loader.style.display = "block";
+
+   //         $('#loading').fadeIn('fast');
+        }
+    </script>
+    <div id="loading">
+        Generating descriptor...</div>
+
 </asp:Content>

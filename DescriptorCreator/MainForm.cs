@@ -288,8 +288,7 @@ namespace DescriptorCreator
 
 		private void StoreTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
 		{
-            Trees t = new Trees();
-            t.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
+            Engine.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
 
             /*
             var conn =
@@ -341,7 +340,10 @@ namespace DescriptorCreator
 
 		private void StoreDescriptor(int treeID, double[] desc)
 		{
-			System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            Engine.AddDescriptor(treeID, desc);
+
+            /*
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
 			var conn =
 				new SqlConnection(
@@ -379,6 +381,7 @@ namespace DescriptorCreator
 			conn.Open();
 			cmd.ExecuteNonQuery();
 			conn.Close();
+             */ 
 		}
 
 		private void storeDescriptorToolStripMenuItem_Click(object sender, EventArgs e)
