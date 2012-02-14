@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Descriptor.cs" />
     <Compile Include="ILeafService.cs" />
-    <Compile Include="Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LeafService.cs" />
     <Compile Include="RecognizedLeaf.cs" />

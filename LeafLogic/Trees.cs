@@ -6,57 +6,37 @@ using System.Data.SqlClient;
 
 namespace Leaf.Logic
 {
-    class Trees
+    public class Trees
     {
         public Tree[] GetTrees()
         {
-            return null;
+            Tree[] trees;
 
-            using (SqlConnection conn = new SqlConnection(
-                @"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf"))
+            using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
             {
-
-                var cmd = new SqlCommand()
-                {
-                    Connection = conn
-                };
-                /*
-                                var czR = new SqlParameter()
-                                {
-                                    ParameterName = "czR",
-                                    Value = czDruhove ?? String.Empty
-                                };
-
-                                var czD = new SqlParameter()
-                                {
-                                    ParameterName = "czD",
-                                    Value = czDruhove ?? String.Empty
-                                };
-
-                                var ltR = new SqlParameter()
-                                {
-                                    ParameterName = "ltR",
-                                    Value = ltRodove ?? String.Empty
-                                };
-
-                                var ltD = new SqlParameter()
-                                {
-                                    ParameterName = "ltD",
-                                    Value = ltDruhove ?? String.Empty
-                                };
-                                */
-                // cmd.Parameters.Add(czD);
-                // cmd.Parameters.Add(czR);
-                // cmd.Parameters.Add(ltR);
-                // cmd.Parameters.Add(ltD);
-
-                cmd.CommandText =
-                    "INSERT INTO TREE (RodoveCesky, DruhoveCesky, RodoveLatinsky, DruhoveLatinsky, Verified) VALUES (@czR, @czD, @ltR, @ltD, 1)";
-
                 conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                SqlCommand cmdCnt = new SqlCommand("SELECT COUNT(ID) FROM TREE ORDER BY RodoveCesky ASC", conn);
+                int rows = (int)cmdCnt.ExecuteScalar();
+
+                trees = new Tree[rows];
+
+                SqlCommand cmd = new SqlCommand("SELECT ID, Verified, RodoveCesky, DruhoveCesky, RodoveLatinsky, DruhoveLatinsky FROM TREE ORDER BY RodoveCesky ASC", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                int i = 0;
+                while (reader.Read())
+                {
+                    trees[i] = new Tree();
+                    trees[i].ID = (int)reader["ID"];
+                    trees[i].Verified = (bool)reader.GetBoolean(1);
+                    trees[i].RodoveCzech = (string)reader["RodoveCesky"];
+                    trees[i].DruhoveCzech = (string)reader["DruhoveCesky"];
+                    trees[i].RodoveLatin = (string)reader["RodoveLatinsky"];
+                    trees[i].DruhoveLatin = (string)reader["DruhoveLatinsky"];
+                }
             }
+
+            return trees;
         }
     }
 }

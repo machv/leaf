@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Leaf.Logic
 {
-    class Tree
+    public class Tree
     {
         public int ID { get; set; }
         public string RodoveCzech { get; set; }

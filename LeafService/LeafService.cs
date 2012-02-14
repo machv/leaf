@@ -16,7 +16,8 @@ namespace Leaf.Service
     {
         public Tree[] GetTrees()
         {
-            return null;
+            Trees trees = new Trees();
+            return trees.GetTrees();
         }
 
         public RecognizedLeaf[] Recognize(string picture, int noAnswers = 3)
