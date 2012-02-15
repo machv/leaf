@@ -30,5 +30,5 @@ namespace Leaf.Logic
                 return RodoveLatin + " " + DruhoveLatin;
             }
         }
-    }
+	}
 }

@@ -133,7 +133,7 @@ namespace Leaf.Logic
             }
         }
 
-        public static Tree[] MatchDescriptor(double[] desc, int limitResults = 3, double threshold = 2d)
+        public static Tree[] MatchDescriptor(double[] desc, int limitResults = 3, double threshold = 0.1d)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
@@ -169,7 +169,7 @@ namespace Leaf.Logic
                 string limit = limitResults > 0 ? "TOP " + limitResults.ToString() : "";
 
                 cmd.CommandText =
-                    "SELECT " + limit + " T1.ID as ID, T1.RodoveCesky AS RodoveCesky, T1.DruhoveCesky AS DruhoveCesky, T1.RodoveLatinsky AS RodoveLatinsky, T1.DruhoveLatinsky AS DruhoveLatinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID WHERE dbo.IsClose(CAST(@descriptor AS dbo.Descriptor), T2.Descriptor, @Threshold) = 1 ORDER BY Confidence ASC;";
+					"SELECT " + limit + " T1.ID as ID, T1.RodoveCesky AS RodoveCesky, T1.DruhoveCesky AS DruhoveCesky, T1.RodoveLatinsky AS RodoveLatinsky, T1.DruhoveLatinsky AS DruhoveLatinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID WHERE dbo.IsClose(CAST(@descriptor AS dbo.Descriptor), T2.Descriptor, @Threshold) = 1 ORDER BY Confidence ASC;";
 
                 conn.Open();
                 var reader = cmd.ExecuteReader();
@@ -177,13 +177,15 @@ namespace Leaf.Logic
                 while (reader.Read())
                 {
                     Tree tree = new Tree();
-                    tree.Confidence = (double)reader["Confidence"];
+                    tree.Confidence = (100 - (double)reader["Confidence"] * 100);
                     tree.DruhoveCzech = (string)reader["DruhoveCesky"];
                     tree.DruhoveLatin = (string)reader["DruhoveLatinsky"];
                     tree.ID = (int)reader["ID"];
                     tree.RodoveCzech = (string)reader["RodoveCesky"];
                     tree.RodoveLatin = (string)reader["RodoveLatinsky"];
-                    collection.Add(tree);
+                    
+					if ((from c in collection where c.ID == tree.ID select c).Count() == 0)
+						collection.Add(tree);
                 }
 
                 conn.Close();
