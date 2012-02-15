@@ -313,11 +313,11 @@ div.accountInfo
 #loading
 {
     display: none;
-    width: 200px;
-    height: 100px;
+    width: 300px;
+    height: 110px;
     position: fixed;
-    top: 50%;
-    left: 45%;
+    top: 40%;
+    left: 42%;
     background: url(../loader.gif) no-repeat center #fff;
     text-align: center;
     padding: 10px;

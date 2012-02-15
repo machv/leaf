@@ -132,5 +132,64 @@ namespace Leaf.Logic
                 return id;
             }
         }
+
+        public static Tree[] MatchDescriptor(double[] desc, int limitResults = 3, double threshold = 2d)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+            var collection = new List<Tree>();
+            using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
+            {
+                var cmd = new SqlCommand()
+                {
+                    Connection = conn
+                };
+
+                var sb = new StringBuilder(desc.Length);
+                sb.Append(desc[0]);
+
+                for (var i = 1; i < desc.Length; i++)
+                    sb.Append(':').Append(desc[i]);
+
+                var descParam = new SqlParameter()
+                {
+                    ParameterName = "descriptor",
+                    Value = sb.ToString()
+                };
+
+                var theshold = new SqlParameter()
+                {
+                    ParameterName = "threshold",
+                    Value = threshold
+                };
+
+                cmd.Parameters.Add(descParam);
+                cmd.Parameters.Add(theshold);
+
+                string limit = limitResults > 0 ? "TOP " + limitResults.ToString() : "";
+
+                cmd.CommandText =
+                    "SELECT " + limit + " T1.ID as ID, T1.RodoveCesky AS RodoveCesky, T1.DruhoveCesky AS DruhoveCesky, T1.RodoveLatinsky AS RodoveLatinsky, T1.DruhoveLatinsky AS DruhoveLatinsky, T2.Descriptor.Distance(CAST(@descriptor AS dbo.Descriptor)) AS Confidence FROM TREE AS T1 JOIN DESCRIPTOR AS T2 ON T1.ID = T2.TreeID WHERE dbo.IsClose(CAST(@descriptor AS dbo.Descriptor), T2.Descriptor, @Threshold) = 1 ORDER BY Confidence ASC;";
+
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                
+                while (reader.Read())
+                {
+                    Tree tree = new Tree();
+                    tree.Confidence = (double)reader["Confidence"];
+                    tree.DruhoveCzech = (string)reader["DruhoveCesky"];
+                    tree.DruhoveLatin = (string)reader["DruhoveLatinsky"];
+                    tree.ID = (int)reader["ID"];
+                    tree.RodoveCzech = (string)reader["RodoveCesky"];
+                    tree.RodoveLatin = (string)reader["RodoveLatinsky"];
+                    collection.Add(tree);
+                }
+
+                conn.Close();
+            }
+
+            return collection.ToArray();
+        }
     }
 }

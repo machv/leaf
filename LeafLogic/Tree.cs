@@ -13,7 +13,8 @@ namespace Leaf.Logic
         public string RodoveLatin { get; set; }
         public string DruhoveLatin { get; set; }
         public bool Verified { get; set; }
-        
+        public double Confidence { get; set; }
+
         public string NameCzech
         {
             get

@@ -15,89 +15,15 @@ namespace LeafWeb.LeafService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RecognizedLeaf", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Service")]
-    [System.SerializableAttribute()]
-    public partial class RecognizedLeaf : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double ConfidencyField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LatinNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Confidency {
-            get {
-                return this.ConfidencyField;
-            }
-            set {
-                if ((this.ConfidencyField.Equals(value) != true)) {
-                    this.ConfidencyField = value;
-                    this.RaisePropertyChanged("Confidency");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LatinName {
-            get {
-                return this.LatinNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LatinNameField, value) != true)) {
-                    this.LatinNameField = value;
-                    this.RaisePropertyChanged("LatinName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Tree", Namespace="http://schemas.datacontract.org/2004/07/Leaf.Logic")]
     [System.SerializableAttribute()]
     public partial class Tree : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double ConfidenceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DruhoveCzechField;
@@ -124,6 +50,19 @@ namespace LeafWeb.LeafService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Confidence {
+            get {
+                return this.ConfidenceField;
+            }
+            set {
+                if ((this.ConfidenceField.Equals(value) != true)) {
+                    this.ConfidenceField = value;
+                    this.RaisePropertyChanged("Confidence");
+                }
             }
         }
         
@@ -220,7 +159,7 @@ namespace LeafWeb.LeafService {
     public interface ILeafService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/Recognize", ReplyAction="http://tempuri.org/ILeafService/RecognizeResponse")]
-        LeafWeb.LeafService.RecognizedLeaf[] Recognize(string picture, int noAnswers);
+        LeafWeb.LeafService.Tree[] Recognize(string picture, int noAnswers);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/GetTrees", ReplyAction="http://tempuri.org/ILeafService/GetTreesResponse")]
         LeafWeb.LeafService.Tree[] GetTrees();
@@ -259,7 +198,7 @@ namespace LeafWeb.LeafService {
                 base(binding, remoteAddress) {
         }
         
-        public LeafWeb.LeafService.RecognizedLeaf[] Recognize(string picture, int noAnswers) {
+        public LeafWeb.LeafService.Tree[] Recognize(string picture, int noAnswers) {
             return base.Channel.Recognize(picture, noAnswers);
         }
         

@@ -57,6 +57,7 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="loader.gif" />
     <Content Include="Admin\AddLeaf.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="App_Data\users.txt" />
@@ -74,12 +75,6 @@
     </None>
     <None Include="Service References\LeafService\LeafService2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\LeafService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\LeafWeb.LeafService.RecognizedLeaf.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LeafService\LeafWeb.LeafService.Tree.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

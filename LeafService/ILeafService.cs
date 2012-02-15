@@ -12,7 +12,7 @@ namespace Leaf.Service
 	public interface ILeafService
 	{
         [OperationContract]
-        RecognizedLeaf[] Recognize(string picture, int noAnswers);
+        Tree[] Recognize(string picture, int noAnswers);
 
         [OperationContract]
         Tree[] GetTrees();

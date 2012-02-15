@@ -29,7 +29,7 @@ namespace Leaf.Service
             return Engine.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
         }
 
-        public RecognizedLeaf[] Recognize(string picture, int noAnswers = 3)
+        public Tree[] Recognize(string picture, int noAnswers = 3)
         {
             // prijima obrazek jako string zakodovany v base64, ten se rozkoduje do Bitmapy, vypocita deskriptor, a hleda
             //http://stackoverflow.com/questions/6807283/transferring-byte-array-from-soap-service-to-android
@@ -39,17 +39,20 @@ namespace Leaf.Service
             MemoryStream ms = new MemoryStream(imageBytes);
             Bitmap img = (Bitmap)Image.FromStream(ms);
             ms.Close();
+            Bitmap dva = new Bitmap(img);
 
-            //TODO: na tenhle img zavolat rozpozavani
+            var descriptor = ImageProcessing.GetDescriptor(dva);
 
-            var descriptor = ImageProcessing.GetDescriptor(img);
+            Tree[] result = Engine.MatchDescriptor(descriptor, noAnswers);
 
-            // odpovedi
+            return result;
 
-            RecognizedLeaf[] leafs = new RecognizedLeaf[1];
-            leafs[0] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
+            //return this.Evaluate(descriptor);
 
-            return leafs;
+            //RecognizedLeaf[] leafs = Evaluate(descriptor);
+            //RecognizedLeaf[] leafs = new RecognizedLeaf[1];
+            //leafs[0] = new RecognizedLeaf("Javor mléč", "Acer platanoides", 0.4d);
+            //return leafs;
 
             //return this.Evaluate(descriptor);
         }
@@ -106,25 +109,16 @@ namespace Leaf.Service
 
         public bool Learn(int treeID, string picture)
         {
-            /*try
-            {*/
-
             byte[] imageBytes = Convert.FromBase64String(picture);
 
             MemoryStream ms = new MemoryStream(imageBytes);
             Bitmap img = (Bitmap)Image.FromStream(ms);
             ms.Close();
-
             Bitmap dva = new Bitmap(img);
 
             double[] descriptor = ImageProcessing.GetDescriptor(dva);
             Engine.AddDescriptor(treeID, descriptor);
-            /* }
-             catch
-             {
-                 return false;
-             }
-             */
+
             return true;
         }
     }

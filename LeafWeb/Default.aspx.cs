@@ -68,7 +68,7 @@ namespace Leaf.Web
             
             LeafServiceClient client = new LeafServiceClient();
             //string reply = client.SayHello();
-            RecognizedLeaf[] leafs = client.Recognize(base64, 5);
+            Tree[] leafs = client.Recognize(base64, 5);
 
 
             //ShowFlashMessage("Leafs found: " + leafs.Length);
