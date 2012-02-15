@@ -7,9 +7,6 @@
     <h2>
         Recognize leaf from photo
     </h2>
-    <p>
-        Leaf recognition service, just upload photo of leaf and submit.
-    </p>
     <asp:PlaceHolder ID="flashMessageBox" runat="server" Visible="false">
         <div style="margin: 20px; border: 1px solid #476bd6; background: #A7D4EB; padding: 10px;
             text-align: center">
@@ -17,8 +14,21 @@
         </div>
     </asp:PlaceHolder>
     <fieldset>
+        <legend>How to use it</legend>
+        <p>
+            To achive best results please follow these advices:</p>
+        <ul>
+            <li>capture separate leaf</li>
+            <li>monochromatic background (eg. blank sheet of paper)</li>
+            <li>stem oriented down</li>
+        </ul>
+        <p>
+            Just upload or enter URL of image meeting conditions above and submit form.
+        </p>
+    </fieldset>
+    <fieldset>
         <legend>Recognize</legend>
-        <table>
+        <table style="width: 100%">
             <tr>
                 <td>
                     <strong>Photo:</strong>
@@ -26,11 +36,20 @@
                 <td>
                     <asp:FileUpload ID="LeafPhotoUpload" runat="server" />
                 </td>
+                <td>
+                    or
+                </td>
+                <td>
+                    <strong>Url:</strong>
+                </td>
+                <td>
+                    <asp:TextBox ID="UrlWithImage" Width="400px" runat="server"></asp:TextBox>
+                </td>
                 <!--/tr>
         <tr-->
                 <td>
                 </td>
-                <td>
+                <td style="text-align: right">
                     <asp:Button ID="ProcessUpload" runat="server" OnClientClick="ShowLoader();" Text="Recognize it!"
                         OnClick="ProcessUpload_Click" />
                 </td>
@@ -60,11 +79,11 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <li><b>
-                                    <%# ((LeafWeb.LeafService.Tree)(Container.DataItem)).RodoveCzech %>
-                                    <%# ((LeafWeb.LeafService.Tree)(Container.DataItem)).DruhoveCzech %>
-                                </b>(<%# ((LeafWeb.LeafService.Tree)(Container.DataItem)).RodoveLatin %>
-                                    <%# ((LeafWeb.LeafService.Tree)(Container.DataItem)).DruhoveLatin %>) <span style="color: silver">
-                                        <%# Math.Round(((LeafWeb.LeafService.Tree)(Container.DataItem)).Confidence,5) %>
+                                    <%# ((Leaf.Web.LeafService.Tree)(Container.DataItem)).RodoveCzech %>
+                                    <%# ((Leaf.Web.LeafService.Tree)(Container.DataItem)).DruhoveCzech %>
+                                </b>(<%# ((Leaf.Web.LeafService.Tree)(Container.DataItem)).RodoveLatin %>
+                                    <%# ((Leaf.Web.LeafService.Tree)(Container.DataItem)).DruhoveLatin %>) <span style="color: silver">
+                                        <%# Math.Round(((Leaf.Web.LeafService.Tree)(Container.DataItem)).Confidence,2) %>%
                                     </span></li>
                             </ItemTemplate>
                             <FooterTemplate>

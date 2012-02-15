@@ -19,14 +19,16 @@
         </div>
     </asp:PlaceHolder>
     <table>
-        <tr>
-            <td style="font-weight: bold">
-                Image:
-            </td>
-            <td>
-                <asp:FileUpload ID="fuLeafFile" runat="server" />
-            </td>
-        </tr>
+        <asp:PlaceHolder ID="PlaceHolderUpload" runat="server" Visible="true">
+            <tr>
+                <td style="font-weight: bold">
+                    Image:
+                </td>
+                <td>
+                    <asp:FileUpload ID="fuLeafFile" runat="server" />
+                </td>
+            </tr>
+        </asp:PlaceHolder>
         <tr>
             <td style="font-weight: bold">
                 Tree name:
@@ -72,11 +74,49 @@
                             <asp:TextBox ID="txtTreeNameLatinDruhove" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                    <!--tr>
+                    <td>Photo:</td>
+                    <td colspan="2"><asp:TextBox ID="txtTreePhoto" runat="server"></asp:TextBox></td>
+                    </tr-->
                 </table>
             </td>
         </tr>
+        <asp:PlaceHolder ID="PlaceHolderPreview" runat="server" Visible="true">
+            <tr>
+                <td>
+                    <strong>Preview: </strong>
+                </td>
+                <td>
+                    <asp:CheckBox ID="CheckBoxPreview" runat="server" Text="Preview descriptor before saving to database" />
+                </td>
+            </tr>
+        </asp:PlaceHolder>
+        <asp:PlaceHolder ID="PlaceHolderImage" runat="server" Visible="false">
+            <tr>
+                <td>
+                    <strong>Descriptor:</strong>
+                </td>
+                <td>
+                    <p>
+                        <i>Preview of computed descriptor.</i></p>
+                    <asp:Image ID="ImageUploaded" runat="server" AlternateText="Visualised descriptor" />
+                </td>
+            </tr>
+            <script type="text/javascript">
+                var logo = document.getElementById("<%=ImageUploaded.ClientID %>");
+
+                $(document).ready(function () {
+                    ShowLoaderImage();
+                });
+
+                logo.onload = function () {
+                    HideLoader();
+                };
+            </script>
+        </asp:PlaceHolder>
         <tr>
             <td>
+                <asp:HiddenField ID="HiddenFieldIsPreview" Value="0" runat="server" />
             </td>
             <td>
                 <asp:Button ID="ButtonSaveLeaf" runat="server" Text="Save leaf" OnClientClick="ShowLoader();"
@@ -84,17 +124,54 @@
             </td>
         </tr>
     </table>
-    <script>
+    <script type="text/javascript">
+        var IsPreview = <%= IsNewTreeInPreview ? 1 : 0 %>;
+
+        if(IsPreview)
+        {
+            document.getElementById("newRow").style.display="";
+        }
+
+        var CheckBoxPreview = document.getElementById("<%= CheckBoxPreview.ClientID %>");
+
         function ShowLoader() {
-            var cvr = document.getElementById("cover");
             var loader = document.getElementById("loading");
+
+            if (CheckBoxPreview != null && CheckBoxPreview.checked) {
+                loader.innerHTML = "Generating preview...";
+            }
+            else {
+                loader.innerHTML = "Generating descriptor...";
+            }
+
+            var cvr = document.getElementById("cover");
+
             cvr.style.display = "block";
             loader.style.display = "block";
+        }
 
-   //         $('#loading').fadeIn('fast');
+        function ShowLoaderImage() {
+            var loader = document.getElementById("loading");
+            loader.innerHTML = "Generating preview...";
+
+            var cvr = document.getElementById("cover");
+
+            cvr.style.display = "block";
+            loader.style.display = "block";
+        }
+
+        function HideLoader()
+        {
+            var loader = document.getElementById("loading");
+
+            loader.innerHTML = "Generating preview...";
+
+            var cvr = document.getElementById("cover");
+
+            cvr.style.display = "none";
+            loader.style.display = "none";
         }
     </script>
     <div id="loading">
         Generating descriptor...</div>
-
 </asp:Content>

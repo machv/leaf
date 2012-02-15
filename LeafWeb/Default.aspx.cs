@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Data;
 using System.Drawing;
-using LeafWeb.LeafService;
+using Leaf.Web.LeafService;
 
 namespace Leaf.Web
 {
@@ -33,32 +33,49 @@ namespace Leaf.Web
 
         protected void ProcessUpload_Click(object sender, EventArgs e)
         {
-            if (!LeafPhotoUpload.HasFile)
+            if (!LeafPhotoUpload.HasFile && !UrlWithImage.Text.Contains("http://"))
             {
-                ShowFlashMessage("No image file uploaded.");
+                ShowFlashMessage("No image file specified.");
                 return;
             }
 
-            if (System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".jpeg" &&
-                System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".jpg"
-                )
-            {
-                ShowFlashMessage("Only JPEG photos are accepted.");
-                return;
-            }
+            byte[] bytedata;
 
+            if (LeafPhotoUpload.HasFile)
+            {
+                if (
+                    System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".jpeg" &&
+                    System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".jpg" &&
+                    System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".png" &&
+                    System.IO.Path.GetExtension(LeafPhotoUpload.FileName).ToLower() != ".gif"
+                    )
+                {
+                    ShowFlashMessage("Only photos are accepted in JPEG, PNG of GIF format.");
+                    return;
+                }
+
+                Stream stream = LeafPhotoUpload.FileContent;
+                StreamReader reader = new StreamReader(stream);
+ 
+                HttpPostedFile postFile = LeafPhotoUpload.PostedFile;
+                int contentLength = postFile.ContentLength;//Storing file length
+                bytedata = new byte[contentLength];//Initializing byte variable by passing image content length.
+                postFile.InputStream.Read(bytedata, 0, contentLength); //Reading byte content
+            }
+            else
+            {
+                try
+                {
+                    using (System.Net.WebClient webClient = new System.Net.WebClient())
+                        bytedata = webClient.DownloadData(UrlWithImage.Text);
+                }
+                catch
+                {
+                    ShowFlashMessage("Unable to load image from url.");
+                    return;
+                }
+            }
             HideFlashMessage();
-
-            Stream stream = LeafPhotoUpload.FileContent;
-            StreamReader reader = new StreamReader(stream);
-
-
-            byte[] bytedata;//To store image file
-            HttpPostedFile postFile = LeafPhotoUpload.PostedFile;
-            int contentLength = postFile.ContentLength;//Storing file length
-            bytedata = new byte[contentLength];//Initializing byte variable by passing image content length.
-            postFile.InputStream.Read(bytedata, 0, contentLength); //Reading byte content
-
 
             Bitmap img = ImageUtils.BitmapFromBytes(bytedata);
             System.Drawing.Image NewImage = ImageUtils.Resize(img, 400, 400, true);
@@ -70,10 +87,7 @@ namespace Leaf.Web
             //string reply = client.SayHello();
             Tree[] leafs = client.Recognize(base64, 5);
 
-
             //ShowFlashMessage("Leafs found: " + leafs.Length);
-
-            
 
             DataTable dtTemp = new DataTable("TempImage");//Creating temprory data table which will store image information
             dtTemp.Columns.Add("Image", System.Type.GetType("System.Byte[]"));//Byte Image column
@@ -88,7 +102,7 @@ namespace Leaf.Web
             //
             ResponsePlaceHolder.Visible = true;
 
-            string leaf = leafs.Length > 1 ? "leafs" : "leaf";
+            string leaf = leafs.Length > 1 ? "matches" : "match";
             LabelResults.Text = leafs.Length + " " + leaf + " found.";
 
             ResultsRepeater.DataSource = leafs;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LeafWeb.LeafService {
+namespace Leaf.Web.LeafService {
     using System.Runtime.Serialization;
     using System;
     
@@ -159,10 +159,10 @@ namespace LeafWeb.LeafService {
     public interface ILeafService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/Recognize", ReplyAction="http://tempuri.org/ILeafService/RecognizeResponse")]
-        LeafWeb.LeafService.Tree[] Recognize(string picture, int noAnswers);
+        Leaf.Web.LeafService.Tree[] Recognize(string picture, int noAnswers);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/GetTrees", ReplyAction="http://tempuri.org/ILeafService/GetTreesResponse")]
-        LeafWeb.LeafService.Tree[] GetTrees();
+        Leaf.Web.LeafService.Tree[] GetTrees();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILeafService/AddTree", ReplyAction="http://tempuri.org/ILeafService/AddTreeResponse")]
         int AddTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove);
@@ -172,12 +172,12 @@ namespace LeafWeb.LeafService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ILeafServiceChannel : LeafWeb.LeafService.ILeafService, System.ServiceModel.IClientChannel {
+    public interface ILeafServiceChannel : Leaf.Web.LeafService.ILeafService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LeafServiceClient : System.ServiceModel.ClientBase<LeafWeb.LeafService.ILeafService>, LeafWeb.LeafService.ILeafService {
+    public partial class LeafServiceClient : System.ServiceModel.ClientBase<Leaf.Web.LeafService.ILeafService>, Leaf.Web.LeafService.ILeafService {
         
         public LeafServiceClient() {
         }
@@ -198,11 +198,11 @@ namespace LeafWeb.LeafService {
                 base(binding, remoteAddress) {
         }
         
-        public LeafWeb.LeafService.Tree[] Recognize(string picture, int noAnswers) {
+        public Leaf.Web.LeafService.Tree[] Recognize(string picture, int noAnswers) {
             return base.Channel.Recognize(picture, noAnswers);
         }
         
-        public LeafWeb.LeafService.Tree[] GetTrees() {
+        public Leaf.Web.LeafService.Tree[] GetTrees() {
             return base.Channel.GetTrees();
         }
         

@@ -31,6 +31,15 @@ namespace Leaf.Web.Admin {
         protected global::System.Web.UI.WebControls.Label flashMessageText;
         
         /// <summary>
+        /// PlaceHolderUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderUpload;
+        
+        /// <summary>
         /// fuLeafFile control.
         /// </summary>
         /// <remarks>
@@ -83,6 +92,60 @@ namespace Leaf.Web.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTreeNameLatinDruhove;
+        
+        /// <summary>
+        /// txtTreePhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTreePhoto;
+        
+        /// <summary>
+        /// PlaceHolderPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderPreview;
+        
+        /// <summary>
+        /// CheckBoxPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxPreview;
+        
+        /// <summary>
+        /// PlaceHolderImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderImage;
+        
+        /// <summary>
+        /// ImageUploaded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageUploaded;
+        
+        /// <summary>
+        /// HiddenFieldIsPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldIsPreview;
         
         /// <summary>
         /// ButtonSaveLeaf control.

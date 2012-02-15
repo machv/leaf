@@ -10,7 +10,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LeafWeb</RootNamespace>
+    <RootNamespace>Leaf.Web</RootNamespace>
     <AssemblyName>LeafWeb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
@@ -57,6 +57,7 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\DescriptorPreview.aspx" />
     <Content Include="loader.gif" />
     <Content Include="Admin\AddLeaf.aspx" />
     <Content Include="Admin\Login.aspx" />
@@ -66,6 +67,9 @@
     <Content Include="Image.aspx" />
     <None Include="Service References\LeafService\configuration91.svcinfo" />
     <None Include="Service References\LeafService\configuration.svcinfo" />
+    <None Include="Service References\LeafService\Leaf.Web.LeafService.Tree.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LeafService\LeafService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -75,9 +79,6 @@
     </None>
     <None Include="Service References\LeafService\LeafService2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LeafService\LeafWeb.LeafService.Tree.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LeafService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -106,6 +107,13 @@
     </Compile>
     <Compile Include="Admin\AddLeaf.aspx.designer.cs">
       <DependentUpon>AddLeaf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\DescriptorPreview.aspx.cs">
+      <DependentUpon>DescriptorPreview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DescriptorPreview.aspx.designer.cs">
+      <DependentUpon>DescriptorPreview.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -146,7 +154,12 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LeafLogic\LeafLogic.csproj">
+      <Project>{7C63D916-EA31-4F64-AA89-D6ED4027F008}</Project>
+      <Name>LeafLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
   </ItemGroup>

@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Drawing;
+using Leaf.Web;
+
+namespace Leaf.Web.Admin
+{
+    public partial class DescriptorPreview : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Session["dtPreview"];
+            byte[] b = null;
+
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    //storing image binary information in byte array variable.
+                    b = ((byte[])dt.Rows[0]["Image"]);
+                }
+
+                if (b != null)
+                {
+                    Bitmap img = ImageUtils.BitmapFromBytes(b);
+
+                    Bitmap dva = new Bitmap(img);
+
+                    ImageUtils.DescriptorPreview preview = new ImageUtils.DescriptorPreview(dva);
+                    Bitmap newImg = preview.GeneratePreview();
+
+                    System.Drawing.Image NewImage = ImageUtils.Resize(newImg, 400, 400, true);
+                    byte[] data = ImageUtils.ImageToBytes(NewImage);
+
+                    Response.ContentType = "image/jpeg";
+                    Response.BinaryWrite(data);
+                }
+            }
+        }
+    }
+}

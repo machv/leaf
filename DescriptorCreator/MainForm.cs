@@ -289,99 +289,11 @@ namespace DescriptorCreator
 		private void StoreTree(string czRodove, string czDruhove, string ltRodove, string ltDruhove)
 		{
             Engine.AddTree(czRodove, czDruhove, ltRodove, ltDruhove);
-
-            /*
-            var conn =
-				new SqlConnection(
-					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
-
-			var cmd = new SqlCommand()
-			{
-				Connection = conn
-			};
-
-			var czR = new SqlParameter()
-			{
-				ParameterName = "czR",
-				Value = czDruhove ?? String.Empty
-			};
-
-			var czD = new SqlParameter()
-			{
-				ParameterName = "czD",
-				Value = czDruhove ?? String.Empty
-			};
-
-			var ltR = new SqlParameter()
-			{
-				ParameterName = "ltR",
-				Value = ltRodove ?? String.Empty
-			};
-
-			var ltD = new SqlParameter()
-			{
-				ParameterName = "ltD",
-				Value = ltDruhove ?? String.Empty
-			};
-
-			cmd.Parameters.Add(czD);
-			cmd.Parameters.Add(czR);
-			cmd.Parameters.Add(ltR);
-			cmd.Parameters.Add(ltD);
-
-			cmd.CommandText =
-				"INSERT INTO TREE (RodoveCesky, DruhoveCesky, RodoveLatinsky, DruhoveLatinsky, Verified) VALUES (@czR, @czD, @ltR, @ltD, 1)";
-
-			conn.Open();
-			cmd.ExecuteNonQuery();
-			conn.Close();
-             */
 		}
 
 		private void StoreDescriptor(int treeID, double[] desc)
 		{
             Engine.AddDescriptor(treeID, desc);
-
-            /*
-            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-
-			var conn =
-				new SqlConnection(
-					@"Data Source=leaf.sunstorm.info\SQLEXPRESS;Initial Catalog=Leaf;Persist Security Info=True;User ID=leaf;Password=leaf");
-
-			var cmd = new SqlCommand()
-			{
-				Connection = conn
-			};
-
-			var sb = new StringBuilder(desc.Length);
-			sb.Append(desc[0]);
-
-			for (var i = 1; i < desc.Length; i++)
-				sb.Append(':').Append(desc[i]);
-
-			var descParam = new SqlParameter()
-			{
-				ParameterName = "descriptor",
-				Value = sb.ToString()
-			};
-
-			var tree = new SqlParameter()
-			{
-				ParameterName = "id",
-				Value = treeID
-			};
-
-			cmd.Parameters.Add(descParam);
-			cmd.Parameters.Add(tree);
-
-			cmd.CommandText =
-				"INSERT INTO DESCRIPTOR (TreeID, Descriptor) VALUES (@id, CAST(@descriptor AS dbo.Descriptor));";
-
-			conn.Open();
-			cmd.ExecuteNonQuery();
-			conn.Close();
-             */ 
 		}
 
 		private void storeDescriptorToolStripMenuItem_Click(object sender, EventArgs e)
