@@ -86,7 +86,7 @@ namespace Leaf.Web
                 Normalize(0);
                 Countour();
                 Centroid();
-                //Lines();
+                Lines();
 
                 return image;
             }
@@ -95,12 +95,22 @@ namespace Leaf.Web
             {
                 var image2 = (Bitmap)image.Clone();
 
-                image = (Bitmap)ImageProcessing.DrawCentroidLines(image2, centroid);
+               //ImageProcessing.GetReferncialPoints((Bitmap)image.Clone(), centroid);
+
+               var g = Graphics.FromImage(image);
+
+               //foreach (var referncialPoint in ImageProcessing.GetReferncialPoints((Bitmap)image.Clone(), this.centroid))
+               foreach (var referncialPoint in ImageProcessing.GetReferncialPoints((Bitmap)image.Clone(), this.centroid))
+               {
+                   g.DrawLine(new Pen(Color.Blue), this.centroid, referncialPoint);
+               }
+
+                //image = (Bitmap)ImageProcessing.DrawCentroidLines(image2, centroid);
             }
 
             protected Point GetCentroid()
             {
-                var centroid = new Point();
+                //var centroid = new Point();
                 var list = new List<Point>();
                 
                 try
